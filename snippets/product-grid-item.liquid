@@ -1,0 +1,103 @@
+{%- if request.host contains 'myshopify.com' -%}
+   {%- assign is_admin_interface = true -%}
+{%- else -%}
+   {%- assign is_admin_interface = false -%}
+{%- endif -%}
+
+{%- if template.name == 'cart' -%}
+   {%- assign is_admin_interface = true -%}
+{%- endif -%}
+
+
+{% unless proImageSize %}
+	{% assign proImageSize = 'large' %}
+{% endunless %}
+{% assign on_sale = false %}
+{% if product.compare_at_price > product.price %}
+    {% assign on_sale = true %}
+{% endif %}
+{% assign sold_out = true %}
+{% if product.available %}
+    {% assign sold_out = false %}
+{% endif %}
+<div class="velaProBlock {{ product-grid-item }} {% if settings.multiple_image_product_enable %}multiple_image{% endif %}" data-price="{{ product.price | money_without_currency }}">
+    <div class="proHImage">
+        <a class="proFeaturedImage" href="{{ product.url }}">         
+            {% for image in product.images %}
+                {% assign intItem = forloop.index %}
+                {% if forloop.first != true %}
+                    <span>
+                        <img
+                             {% if settings.is-speed_optimized and is_admin_interface == false %}
+                             class="lazyloadagc img-responsive"
+                             src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
+                             data-src="{{ image.src | product_img_url:proImageSize }}"
+                             {% else %}
+                             class="img-responsive"                             
+                             src="{{ image.src | product_img_url:proImageSize }}"
+                             {% endif %}
+                             
+                             alt="{{ image.alt }}" />
+                    </span>
+                    {% break %}
+                {% endif %}
+            {% endfor %}
+            <img  
+                 {% if settings.is-speed_optimized and is_admin_interface == false %}
+                 class="lazyloadagc img-responsive {%if intItem == 2 %}image-primay{% endif %}" 
+                 src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
+                 data-src="{{ product.featured_image | product_img_url:proImageSize }}"
+                 {% else %}
+                 class="img-responsive {%if intItem == 2 %}image-primay{% endif %}" 
+                 src="{{ product.featured_image | product_img_url:proImageSize }}"
+                 {% endif %}
+                 
+                 alt="{{ product.featured_image.alt | escape }}"  />           
+        </a>
+        <div class="proButton">
+            {% include 'vela-product-wishlist' %}
+            {% include 'vela-product-quickview' %}
+            {% assign variantCount = product.variants | size %}
+            <form action="/cart/add" method="post" enctype="multipart/form-data" class="formAddToCart">
+                <input type="hidden" name="id" value="{{ product.variants.first.id }}" />
+                {% if sold_out %}
+                    <button class="btn btnAddToCart btnProduct disabled" type="submit" value="Submit" disabled>
+                        <i class="fa fa-shopping-basket"></i>
+                        <span>{{ 'products.product.sold_out' | t }}</span>
+                    </button>
+                {% else %}
+                    {% if variantCount > 1 %}
+                        <a class="btn btnAddToCart btnProduct" href="{{ product.url }}" title="{{ 'products.product.select_options' | t }}">
+                            <i class="fa fa-shopping-basket"></i>
+                            <span class="select_options">{{ 'products.product.select_options' | t }}</span>
+                        </a>
+                    {% else %}
+                        <button class="btn btnAddToCart btnProduct" type="submit" value="Submit">
+                            <i class="fa fa-shopping-basket"></i>
+                            <span>{{ 'products.product.add_to_cart' | t }}</span>
+                        </button>
+                    {% endif %}
+                {% endif %}
+            </form>
+        </div>
+        {% if on_sale %}
+            <span class="labelSale">{{ 'products.product.label_sale' | t }}</span>
+        {% endif %}
+        {% if product.available %}
+            <p class="proAttr instock hidden ">{{'products.product.available' | t }}</p>
+        {% else %}
+            <p class="proAttr outstock hidden">{{'products.product.unavailable' | t }}</p>
+        {% endif %}
+    </div>
+    <div class="proContent">
+        <h5 class="proName">
+            <a href="{{ product.url }}">{{ product.title }}</a>
+        </h5>
+        <div class="proPrice">
+            <div class="priceProduct priceSale">{{ product.price | money }}</div>
+            {% if on_sale %}
+                <div class="priceProduct priceCompare">{{ product.compare_at_price | money }}</div>
+            {% endif %}
+        </div>
+    </div>
+</div>

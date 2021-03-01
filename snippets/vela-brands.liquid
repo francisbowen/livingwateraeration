@@ -1,0 +1,24 @@
+
+<div id="velaBrands" class="velaBlock">
+	{% if section.settings.logo_carousel_title != blank %}
+		<h3 class="velaFooterTitle">{{ section.settings.logo_carousel_title }}</h3>
+	{% endif %}
+	<div class="velaContent">
+		{% for i in (1..9) %}
+			{% assign itemEnable = 'logo_carousel_active' | append: i %}
+			{% assign itemImage = 'logo_image' | append: i  %}
+			{% assign itemLink = 'logo_carousel_link' | append: i %}
+			{% if section.settings[itemEnable] %}
+				<div class="logoImage">
+					<a href="{{ settings[itemLink] }}" title="">
+						{% if section.settings[itemImage] != blank %}
+                     <img class="img-responsive" alt="" src="{{ section.settings[itemImage] | img_url: section.settings.image_size }}" />
+                  {% else %}
+                     <img class="img-responsive" alt="{{ shop.name }}" src="//placehold.it/{{ section.settings.image_size }}" />
+                  {% endif %}
+					</a>
+				</div>
+			{% endif %}
+		{% endfor %}
+	</div>
+</div>

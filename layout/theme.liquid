@@ -1,0 +1,942 @@
+<!doctype html>
+
+{%- if request.host contains 'myshopify.com' -%}
+   {%- assign is_admin_interface = true -%}
+{%- else -%}
+   {%- assign is_admin_interface = false -%}
+{%- endif -%}
+
+{%- if template.name == 'cart' -%}
+   {%- assign is_admin_interface = true -%}
+{%- endif -%}
+
+<!--[if IE 9]> <html class="ie9 no-js" lang="{{ shop.locale }}"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--> 
+<html class="no-js" lang="{{ shop.locale }}"> 
+<!--<![endif]-->
+  
+<head>
+  {% capture sb %}{% include "sb-snippet" %}{% endcapture %}{% unless sb contains "Liquid error" %}{% include "sb-snippet" %}{% endunless %}
+    
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="{{ settings.color_button }}">
+  
+  {% if template contains 'collection' %}
+  	{% if collection.url == '/collections/weighted-pond-aeration-tubing'
+    	or collection.url == '/collections/all'
+  		or collection.url == '/collections/easypro-oil-less-solids-handling-dirty-water-pumps'
+  		or collection.url == '/collections/high-volume-external-pond-pumps' 
+  		or collection.url == '/collections/eco-series' %}
+  		<meta name="robots" content="noindex">
+    {% endif %}
+
+    {% if collection.url == '/collections/pond-aerators-landing' %}
+      <meta name="robots" content="noindex, follow">
+    {% endif %}
+  {% endif %}
+  
+  {% if request.path contains '/tagged/' %}
+  	<meta name="robots" content="noindex">
+  {% endif %} 
+    
+  {% if template == "product" and product.available != true %}
+  	<meta name="robots" content="noindex, follow">
+  {% elsif collection.title == "All" %}
+  	<meta name="robots" content="noindex, follow">
+  {% elsif product.url == "/products/1-2-hp-submersible-trash-pump-115-volt" %}
+  	<link rel="canonical" href="https://www.livingwateraeration.com/products/1-hp-submersible-trash-pump-115-volt" />
+  {% elsif product.url == "/products/1-2-id-polyethylene-non-weighted-aeration-tubing-100-roll"
+  	or product.url == "/products/1-2-id-polyethylene-non-weighted-aeration-tubing-200-roll" 
+  	or product.url == "/products/1-2-id-polyethylene-non-weighted-aeration-tubing-400-roll"
+    or product.url == "/products/3-8-id-polyethylene-non-weighted-aeration-tubing-200-roll" 
+    or product.url == "/products/3-8-id-polyethylene-non-weighted-aeration-tubing-50-roll" 
+    or product.url == "/products/5-8-id-polyethylene-non-weighted-aeration-tubing-200-roll" 
+    or product.url == "/products/5-8-id-polyethylene-non-weighted-aeration-tubing-400-roll" %}
+    <link rel="canonical" href="https://www.livingwateraeration.com/products/3-8-id-polyethylene-non-weighted-aeration-tubing-100-roll" />
+  {% elsif product.url == "/products/1-2-weighted-pond-aeration-tubing-100-roll" 
+  	or product.url == "/products/3-8-weighted-pond-aeration-tubing-100-roll"
+    or product.url == "/products/5-8-weighted-pond-aeration-tubing-100-roll" %}
+  	<link rel="canonical" href="https://www.livingwateraeration.com/products/weighted-pond-aeration-tubing" />
+  {% elsif product.url == "/products/1-hp-gast-rotary-vane-compressor-repair-kit" 
+  	or product.url == "/products/3-4-hp-rotary-vane-repair-kit" %}
+  	<link rel="canonical" href="https://www.livingwateraeration.com/products/1-4-hp-rotary-vane-repair-kit" />
+  {% elsif product.url == "/products/1-hp-gast-rotary-vane-compressor" 
+  	or product.url == "/products/3-4-hp-rotary-vane-compressor" %}
+  	<link rel="canonical" href="https://www.livingwateraeration.com/products/1-4-hp-rotary-vane-compressor" />
+  {% elsif product.url == "/products/10-hp-berkeley-high-volume-centrifugal-pump-1-phase" 
+  	or product.url == "/products/75-hp-berkeley-high-volume-centrifugal-pump" %}
+  	<link rel="canonical" href="https://www.livingwateraeration.com/products/berkeley-high-volume-centrifugal-pump" />
+  {% elsif product.url == "/products/12-windmill-pond-aerator-kit" 
+  	or product.url == "/products/20-windmill-pond-aerator-kit" %}
+  	<link rel="canonical" href="https://www.livingwateraeration.com/products/16-windmill-pond-aerator-kit" />
+  {% elsif product.url == "/products/eco-series-waterfall-diffuser-dual-16" 
+  	or product.url == "/products/eco-series-waterfall-diffuser-dual-23"
+    or product.url == "/products/23-eco-series-waterfall-diffuser" %}
+  	<link rel="canonical" href="https://www.livingwateraeration.com/products/eco-series-waterfall-diffuser" />
+  {% elsif product.url == "/products/3-4-hp-kasco-decorative-pond-fountain-230v" %}
+  	<link rel="canonical" href="https://www.livingwateraeration.com/products/3-4-hp-kasco-decorative-pond-fountain-115v" />
+  {% elsif product.url == "/products/3-pack-short-basalts-kit" %}
+  	<link rel="canonical" href="https://www.livingwateraeration.com/products/3-pack-medium-basalt-kit" />
+  {% elsif product.url == "/products/aermaster-dd-solar-3-pond-aerator-system" %}
+  	<link rel="canonical" href="https://www.livingwateraeration.com/products/aermaster-dd-solar-2-pond-aerator-system" />
+  {% elsif product.url == "/products/airpro-rocking-piston-pond-aerator-kit-up-to-4-acres"
+    or product.url == "/products/airpro-rocking-piston-pond-aerator-kit-up-to-3-acre" 
+ 	or product.url == "/products/airpro-rocking-piston-pond-aerator-kit-up-to-2-acres" %}
+  	<link rel="canonical" href="https://www.livingwateraeration.com/products/airpro-rocking-piston-pond-aerator-kit-up-to-1-acre" />
+  {% elsif product.url == "/products/alumina-airstone-1-1-2-x-1-1-2-x-1-1-2-3-16-barb"
+    or product.url == "/products/alumina-airstone-1-1-2-x-1-1-2-x-12-1-2-npt"
+    or product.url == "/products/alumina-airstone-1-1-2-x-1-1-2-x-12-3-8-barb" 
+    or product.url == "/products/alumina-airstone-1-1-2-x-1-1-2-x-3-1-4-barb" 
+    or product.url == "/products/alumina-airstone-1-1-2-x-1-1-2-x-3-3-8-barb" 
+    or product.url == "/products/alumina-airstone-1-1-2-x-1-1-2-x-6-1-4-barb" 
+    or product.url == "/products/alumina-airstone-1-1-2-x-1-1-2-x-6-3-8-barb"
+    or product.url == "/products/alumina-airstone-1-1-2-x-1-1-2-x-9-3-8-barb" %}
+  	<link rel="canonical" href="https://www.livingwateraeration.com/products/alumina-airstone" />
+  {% elsif product.url == "/products/aqua-ultraviolet-ultima-ii-filter-10000-gallon-pond-max"
+    or product.url == "/products/aqua-ultraviolet-ultima-ii-filter-1000-gallon-pond-max"
+    or product.url == "/products/aqua-ultraviolet-ultima-ii-filter-20000-gallon-pond-max" 
+    or product.url == "/products/aqua-ultraviolet-ultima-ii-filter-4000-gallon-pond-max" 
+    or product.url == "/products/aqua-ultraviolet-ultima-ii-filter-6000-gallon-pond-max" %}
+  	<link rel="canonical" href="https://www.livingwateraeration.com/products/aqua-ultraviolet-ultima-ii-filter-2000-gallon-pond-max" />
+  {% elsif product.url == "/products/aqua-ultraviolet-uv-sterilizer-15-watt"
+    or product.url == "/products/aqua-ultraviolet-uv-sterilizer-25-watt"
+    or product.url == "/products/aqua-ultraviolet-uv-sterilizer-40-watt" 
+    or product.url == "/products/aqua-ultraviolet-uv-sterilizer-57-watt" %}
+  	<link rel="canonical" href="https://www.livingwateraeration.com/products/aqua-ultraviolet-uv-sterilizer" />
+  {% elsif product.url == "/products/aquathol-super-k-liquid-25-gallons" %}
+  	<link rel="canonical" href="https://www.livingwateraeration.com/products/aquathol-super-k-liquid" />
+  {% elsif product.url == "/products/arching-stream-fountain-kit-w-pump" %}
+  	<link rel="canonical" href="https://www.livingwateraeration.com/products/arching-stream-fountain-w-led-light" />
+  {% elsif product.url == "/products/carry-pumps-intake-screen-for-5-7-1-2-10-hp" 
+    or product.url == "/products/carry-pump-intake-screen-for-1-2-3-4-or-1-hp" %}
+  	<link rel="canonical" href="https://www.livingwateraeration.com/products/carry-pumps-intake-screen" />
+  {% elsif product.url == "/products/carry-pumps-15-hp-fountain-pump" %}
+  	<link rel="canonical" href="https://www.livingwateraeration.com/products/carry-pumps-fountain-pump" />
+  {% elsif product.url == "/products/cary-pumps-super-high-volume-subbmersible-pump-cp607-3"
+    or product.url == "/products/carry-pumps-super-high-volume-submersible-pumps-cp610-4"
+    or product.url == "/products/carry-pumps-super-high-volume-submersible-pumps-cp610-3" 
+    or product.url == "/products/carry-pumps-super-high-volume-submersible-pumps-cp607-1" 
+    or product.url == "/products/carry-pumps-super-high-volume-submersible-pump-cp615-4" 
+    or product.url == "/products/carry-pumps-super-high-volume-submersible-pump-cp605-2" 
+    or product.url == "/products/carry-pumps-super-high-volume-submersible-pump-cp605-1"
+    or product.url == "/products/carry-pumps-super-high-volume-submersible-pump-cp403-2" %}
+  	<link rel="canonical" href="https://www.livingwateraeration.com/products/carry-super-high-volume-submersible-pumps" />
+  {% elsif product.url == "/products/cleanout-package-with-50-roll-up-hose" %}
+  	<link rel="canonical" href="https://www.livingwateraeration.com/products/cleanout-package" />
+  {% elsif product.url == "/products/cutrine-plus-granular-30-lbs" %}
+  	<link rel="canonical" href="https://www.livingwateraeration.com/products/cutrine-plus-granular" />
+  {% elsif product.url == "/products/diaphragm-compressor-pond-aerator-1-8-acre-or-less" %}
+  	<link rel="canonical" href="https://www.livingwateraeration.com/products/diaphragm-compressor-pond-aerator-1-20-acre-pond" />
+  {% elsif product.url == "/products/easypro-bead-filter-45000-gallon-maximum"
+    or product.url == "/products/easypro-bead-filter-60000-gallon-maximum" %}
+  	<link rel="canonical" href="https://www.livingwateraeration.com/products/easypro-bead-filter" />
+  {% elsif product.url == "/products/easypro-linear-pond-aerator-28-cfm"
+    or product.url == "/products/easypro-linear-pond-aerator-16-cfm" %}
+  	<link rel="canonical" href="/products/easypro-linear-pond-aerator-10-cfm" />
+  {% elsif product.url == "/products/easypro-pond-salt-10-lb-pail"
+    or product.url == "/products/easypro-pond-salt-20-lb-pail" %}
+  	<link rel="canonical" href="https://www.livingwateraeration.com/products/easypro-pond-salt-50-lb-pail" />
+  {% elsif product.url == "/products/eco-series-heavy-duty-round-28-basin" %}
+  	<link rel="canonical" href="https://www.livingwateraeration.com/products/eco-series-fountain-basin-58" />
+  {% elsif product.url == "/products/eco-series-pond-kit-complete-for-a-10-x-15-pond"
+    or product.url == "/products/eco-series-pond-kit-complete-for-a-15-x-20-pond" 
+  	or product.url == "/products/eco-series-pond-kit-complete-for-a-8-x-10-pond" %}
+  	<link rel="canonical" href="https://www.livingwateraeration.com/products/eco-series-pond-kit-complete" />
+  {% elsif product.url == "/products/eco-series-spillway-18-wide"
+    or product.url == "/products/eco-series-spillway-23-wide" 
+  	or product.url == "/products/eco-series-spillway-34-wide" %}
+  	<link rel="canonical" href="https://www.livingwateraeration.com/products/eco-series-spillway" />
+  {% elsif product.url == "/products/eco-series-stainless-steel-waterfall-spillway-47"
+    or product.url == "/products/eco-series-stainless-steel-waterfall-spillway-35" %}
+  	<link rel="canonical" href="https://www.livingwateraeration.com/products/eco-series-stainless-steel-waterfall-spillway" />
+  {% elsif product.url == "/products/vianti-falls-extended-lip-spillway-71-1-2"
+    or product.url == "/products/vianti-falls-extended-lip-spillway-59-1-2" 
+  	or product.url == "/products/vianti-falls-extended-lip-spillway-47-1-2" %}
+  	<link rel="canonical" href="https://www.livingwateraeration.com/products/vianti-falls-extended-lip-spillway" />
+  {% elsif product.url == "/products/eco-series-waterfall-spillway-faux-stone-23" %}
+  	<link rel="canonical" href="https://www.livingwateraeration.com/products/eco-series-waterfall-spillway-faux-stone" />
+  {% elsif product.url == "/products/erp75-rebuild-kit"
+    or product.url == "/products/erp50-rebuild-kit" %}
+  	<link rel="canonical" href="https://www.livingwateraeration.com/products/erp-rebuild-kit" />
+  {% elsif product.url == "/products/ex-series-external-pump-high-head-13200-gph"
+    or product.url == "/products/ex-series-external-pump-high-head-11200-gph" 
+  	or product.url == "/products/ex-series-external-pump-high-head-11000-gph" %}
+  	<link rel="canonical" href="https://www.livingwateraeration.com/products/ex-series-external-pump-high-head" />
+  {% elsif product.url == "/products/ex-series-external-pump-low-head-4500-gph"
+    or product.url == "/products/ex-series-external-pump-low-head-6100-gph" 
+  	or product.url == "/products/ex-series-external-pump-low-head-8200-gph" %}
+  	<link rel="canonical" href="https://www.livingwateraeration.com/products/ex-series-external-pump-low-head" />
+  {% elsif product.url == "/products/exp-series-external-pump-high-head-9300-gph" %}
+  	<link rel="canonical" href="https://www.livingwateraeration.com/products/exp-series-external-pump-high-head" />
+  {% elsif product.url == "/products/exp-series-external-pump-low-head-7800-gph"
+    or product.url == "/products/exp-series-external-pump-low-head-4900-gph" 
+  	or product.url == "/products/exp-series-external-pump-low-head-6800-gph" %}
+  	<link rel="canonical" href="https://www.livingwateraeration.com/products/exp-series-external-pump-low-head" />
+  {% elsif product.url == "/products/fire-fountain-xr-12-manifold"
+    or product.url == "/products/fire-fountain-xr-18-manifold" %}
+  	<link rel="canonical" href="https://www.livingwateraeration.com/products/fire-fountain-manifold" />
+  {% elsif product.url == "/products/firestone-boxed-pond-liners-45-mil-epdm-10-x-10-liner"
+    or product.url == "/products/firestone-boxed-pond-liners-45-mil-epdm-15-x-20-liner"
+    or product.url == "/products/firestone-boxed-pond-liners-45-mil-epdm-15-x-25-liner" 
+    or product.url == "/products/firestone-boxed-pond-liners-45-mil-epdm-20-x-20-liner"
+    or product.url == "/products/firestone-boxed-pond-liners-45-mil-epdm-10-x-15-liner"
+    or product.url == "/products/firestone-boxed-pond-liner-45-mil-epdm-15-x-15-liner" %}
+    <link rel="canonical" href="https://www.livingwateraeration.com/products/firestone-boxed-pond-liner-45-mil-epdm" />
+  {% elsif product.url == "/products/floating-pond-deicer-2"
+    or product.url == "/products/floating-pond-deicer-1" %}
+  <link rel="canonical" href="https://www.livingwateraeration.com/products/floating-pond-deicer" />
+  {% elsif product.url == "/products/gast-1-2-hp-regenerative-blower"
+    or product.url == "/products/gast-1-3-hp-regenerative-blower"
+    or product.url == "/products/gast-1-8-hp-regenerative-blower" 
+    or product.url == "/products/gast-1-hp-regenerative-blower" 
+    or product.url == "/products/gast-15-hp-regenerative-blower" 
+    or product.url == "/products/gast-25-hp-regenerative-blower" 
+    or product.url == "/products/gast-35-hp-regenerative-blower" %}
+    <link rel="canonical" href="https://www.livingwateraeration.com/products/gast-regenerative-blower" />
+  {% elsif product.url == "/products/high-strength-res-cube-1-2-cube-9-1-2-h-x-16-w-x-27-l" %}
+  	<link rel="canonical" href="https://www.livingwateraeration.com/products/high-strength-rescubes" />
+  {% elsif product.url == "/products/just-a-falls-pondless-waterfall-kit-extra-large"
+    or product.url == "/products/just-a-falls-pondless-waterfall-kit-large"
+  	or product.url == "/products/just-a-falls-pondless-waterfall-kit-medium" %}
+  	<link rel="canonical" href="https://www.livingwateraeration.com/products/just-a-falls-pondless-waterfall-kit" />
+  {% elsif product.url == "/products/kasco-1-hp-deicer-230v"
+    or product.url == "/products/kasco-1-2-hp-deicer"
+  	or product.url == "/products/kasco-3-4-hp-deicer" 
+  	or product.url == "/products/kasco-3-4-hp-deicer-230v" %}
+  	<link rel="canonical" href="https://www.livingwateraeration.com/products/kasco-1-hp-deicer" />
+  {% elsif product.url == "/products/kasco-teich-aire-rocking-piston-compressor-1-2-hp"
+  	or product.url == "/products/kasco-teich-aire-rocking-piston-compressor-3-4-hp" %}
+  	<link rel="canonical" href="https://www.livingwateraeration.com/products/kasco-teich-aire-rocking-piston-compressor-1-4-hp" />
+  {% elsif product.url == "/products/klc-koi-pond-aerators-4000-to-30000-gallon-ponds"
+    or product.url == "/products/klc-koi-pond-aerators-3000-to-22500-gallon-ponds"
+  	or product.url == "/products/klc-koi-pond-aerators-2000-to-15000-gallon-ponds" %}
+  	<link rel="canonical" href="https://www.livingwateraeration.com/products/klc-koi-pond-aerators-1000-to-7500-gallon-ponds" />
+  {% elsif product.url == "/products/koi-pond-kit-max-5500-gallons" %}
+  	<link rel="canonical" href="https://www.livingwateraeration.com/products/koi-pond-kit" />
+  {% elsif product.url == "/products/linear-piston-compressor-86-watts-3-4-outlet"
+    or product.url == "/products/linear-piston-compressor-45-watts-3-4-outlet"
+  	or product.url == "/products/linear-piston-compressor-26-watts-5-8-outlet" %}
+  	<link rel="canonical" href="https://www.livingwateraeration.com/products/linear-piston-compressor" />
+  {% elsif product.url == "/products/matala-horizontal-pump-4680-gph"
+    or product.url == "/products/matala-horizontal-pump-5580-gph"
+    or product.url == "/products/matala-1-2-hp-horizontal-skimmer-pump" 
+    or product.url == "/products/matala-1-3-hp-horizontal-skimmer-pump" 
+    or product.url == "/products/matala-1-5-hp-horizontal-skimmer-pump" 
+    or product.url == "/products/matala-1-hp-horizontal-skimmer-pump" 
+    or product.url == "/products/matala-horizontal-pump-3840-gph" %}
+    <link rel="canonical" href="https://www.livingwateraeration.com/products/matala-horizontal-pump" />
+  {% elsif product.url == "/products/muck-assault-sludge-remover-pellets-10lb-pail" %}
+  	<link rel="canonical" href="https://www.livingwateraeration.com/products/muck-assault-sludge-remover-pellets-25lb-pail" />
+  {% elsif product.url == "/products/munro-pump-1-2-hp"
+    or product.url == "/products/munro-pump-1-hp-115v"
+    or product.url == "/products/munro-pump-3-hp" 
+    or product.url == "/products/munro-pump-5-hp" %}
+    <link rel="canonical" href="https://www.livingwateraeration.com/products/munro-pump" />
+  {% elsif product.url == "/products/optional-strainer-baskets-for-oexo-pumps-15-inlet" %}
+  	<link rel="canonical" href="https://www.livingwateraeration.com/products/optional-strainer-baskets-for-oexo-pumps" />
+  {% elsif product.url == "/products/otterbine-fountain-glow-mr16-low-voltage-led-pond-lighting-4-light-kit"
+    or product.url == "/products/otterbine-fountain-glow-mr16-low-voltage-led-pond-lighting-6-light-kit"
+  	or product.url == "/products/otterbine-fountain-glow-mr16-low-voltage-led-pond-lighting-8-light-kit" %}
+  	<link rel="canonical" href="https://www.livingwateraeration.com/products/otterbine-fountain-glow" />
+  {% elsif product.url == "/products/otterbine-giant-15-hp-mystic-fountain"
+    or product.url == "/products/otterbine-giant-25-hp-mystic-fountain" %}
+  	<link rel="canonical" href="https://www.livingwateraeration.com/products/otterbine-giant-mystic-fountain" />
+  {% elsif product.url == "/products/otterbine-giant-25-hp-polaris-fountain"
+    or product.url == "/products/otterbine-giant-15-hp-polaris-fountain" %}
+  	<link rel="canonical" href="https://www.livingwateraeration.com/products/otterbine-giant-polaris-fountain" />
+  {% elsif product.url == "/products/otterbine-giant-fountain-power-cable-10-4-per-ft"
+    or product.url == "/products/otterbine-giant-fountain-power-cable-6-4-per-ft"
+  	or product.url == "/products/otterbine-giant-fountain-power-cable-8-4-per-ft" %}
+  	<link rel="canonical" href="https://www.livingwateraeration.com/products/otterbine-giant-fountain-power-cable" />
+  {% elsif product.url == "/products/otterbine-power-cable-12-3-per-ft" %}
+  	<link rel="canonical" href="https://www.livingwateraeration.com/products/otterbine-power-cable-per-ft" />
+  {% elsif product.url == "/products/outdoor-water-solutions-powder-coated-2-colored-3-legged-windmill-aeration-system-16-free-shipping"
+    or product.url == "/products/outdoor-water-solutions-powder-coated-2-colored-3-legged-windmill-aeration-system-20-free-shipping" %}
+  	<link rel="canonical" href="https://www.livingwateraeration.com/products/outdoor-water-solutions-powder-coated-2-colored-3-legged-windmill-aeration-system-free-shipping" />
+  {% elsif product.url == "/products/pond-boost-beneficial-bacteria-10-lbs" %}
+  	<link rel="canonical" href="https://www.livingwateraeration.com/products/pond-boost-beneficial-bacteria-25-lbs" />
+  {% elsif product.url == "/products/pro-series-4-bottom-drain-kit-w-air-diffuser-fittings" %}
+  	<link rel="canonical" href="https://www.livingwateraeration.com/products/pro-series-4-heavy-duty-bottom-drain-w-air-diffuser" />
+  {% elsif product.url == "/products/pro-series-waterfall-spillway-16-extension-module-straight"
+    or product.url == "/products/pro-series-waterfall-spillway-16-extension-module-outward" %}
+  	<link rel="canonical" href="https://www.livingwateraeration.com/products/pro-series-waterfall-spillway-16-extension-module" />
+  {% elsif product.url == "/products/pro-series-50-straight-waterfall-spillway-assembled"
+    or product.url == "/products/pro-series-34-straight-waterfall-spillway-assembled" %}
+  	<link rel="canonical" href="https://www.livingwateraeration.com/products/pro-series-straight-waterfall-spillway-assembled" />
+  {% elsif product.url == "/products/pro-series-just-a-falls-kit-w-waterfall-diffuser-24-x-2"
+    or product.url == "/products/pro-series-just-a-falls-kit-w-waterfall-diffuser-28-x-4"
+  	or product.url == "/products/pro-series-just-a-falls-kit-w-waterfall-diffuser-16-x-2" %}
+  	<link rel="canonical" href="https://www.livingwateraeration.com/products/pro-series-just-a-falls-kit-w-waterfall-diffuser" />
+  {% elsif product.url == "/products/pro-series-large-pond-kit-complete-for-34-x-34-pond"
+    or product.url == "/products/pro-series-large-pond-kit-complete-for-24-x-34-pond" %}
+  	<link rel="canonical" href="https://www.livingwateraeration.com/products/pro-series-large-pond-kit-complete" />
+  {% elsif product.url == "/products/pro-series-small-vault-extension" %}
+  	<link rel="canonical" href="https://www.livingwateraeration.com/products/pro-series-vault-extension" />
+  {% elsif product.url == "/products/pro-series-mini-pond-kit-complete-for-6-x-10-pond"
+    or product.url == "/products/pro-series-mini-pond-kit-complete-for-8-x-11-pond" %}
+  	<link rel="canonical" href="https://www.livingwateraeration.com/products/pro-series-mini-pond-kit-complete" />
+  {% elsif product.url == "/products/pro-series-small-pond-kit-complete-for-11-x-11-pond"
+    or product.url == "/products/pro-series-small-pond-kit-complete-for-11-x-16-pond"
+    or product.url == "/products/pro-series-small-pond-kit-complete-for-6-x-11-pond" 
+    or product.url == "/products/pro-series-small-pond-kit-complete-for-8-x-11-pond" %}
+    <link rel="canonical" href="https://www.livingwateraeration.com/products/pro-series-small-pond-kit-complete" />
+  {% elsif product.url == "/products/pro-series-waterfall-spillway-left-right-ends-unassembled-set-up-for-3-pipe" %}
+  	<link rel="canonical" href="https://www.livingwateraeration.com/products/pro-series-waterfall-spillway-left-right-ends-unassembled" />
+  {% elsif product.url == "/products/psa11000-axiom-pond-skimmer"
+    or product.url == "/products/psa9000-axiom-pond-skimmer"
+  	or product.url == "/products/psa7000-axiom-pond-skimmer" %}
+  	<link rel="canonical" href="https://www.livingwateraeration.com/products/psa-axiom-skimmer" />
+  {% elsif product.url == "/products/quiet-line-pond-aeration-system-11-to-25-acre-ponds"
+    or product.url == "/products/quiet-line-pond-aerator-1-2-to-1-acre-ponds"
+    or product.url == "/products/quiet-line-pond-aerator-1-to-2-acre-ponds" 
+    or product.url == "/products/quiet-line-pond-aerator-6-to-8-acre-ponds" %}
+    <link rel="canonical" href="https://www.livingwateraeration.com/products/quiet-line-pond-aerator" />
+  {% elsif product.url == "/products/realrock-landscape-boulder-pump-cover-additional-4-screens" %}
+  	<link rel="canonical" href="https://www.livingwateraeration.com/products/realrock-landscape-boulder-pump-cover-additional-screens" />
+  {% elsif product.url == "/products/rock-plant-grates-for-aquafalls-filters-large"
+    or product.url == "/products/rock-plant-grates-for-aquafalls-filters-medium" %}
+    <link rel="canonical" href="https://www.livingwateraeration.com/products/rock-plant-grates-for-aquafalls-filters" />
+  {% elsif product.url == "/products/rubber-membrane-air-diffuser-12-1-2-npt"
+    or product.url == "/products/rubber-membrane-air-diffuser-12-3-8-1-2-barb"
+    or product.url == "/products/rubber-membrane-air-diffuser-4-1-4-3-8-barb" 
+    or product.url == "/products/rubber-membrane-air-diffuser-6-1-2-npt" 
+    or product.url == "/products/rubber-membrane-air-diffuser-8-1-2-npt" 
+    or product.url == "/products/rubber-membrane-air-diffuser-8-3-8-1-2-barb" 
+    or product.url == "/products/rubber-air-membrane-diffusers-24-mpt" %}
+  	<link rel="canonical" href="https://www.livingwateraeration.com/products/rubber-membrane-air-diffuser-6-3-8-1-2-barb" />
+  {% elsif product.url == "/products/shallow-pond-aerator-kit-for-ponds-up-to-1-2-acre" %}
+  	<link rel="canonical" href="https://www.livingwateraeration.com/products/shallow-pond-aerator-kit-for-ponds-up-to-3-8-acre" />
+  {% elsif product.url == "/products/solaer-solar-powered-pond-aerator-5-acres"
+    or product.url == "/products/solaer-solar-powered-pond-aerator-3-acres"
+    or product.url == "/products/solaer-solar-powered-pond-aerator-2-acres" %}
+  	<link rel="canonical" href="https://www.livingwateraeration.com/products/solaer-solar-powered-pond-aerator" />
+  {% elsif product.url == "/products/solar-charger-12-volt-1-watt-for-scatter-feeders-galvalume-finish" %}
+  	<link rel="canonical" href="https://www.livingwateraeration.com/products/solar-charger-12-volt-1-watt-for-scatter-feeders" />
+  {% elsif product.url == "/products/solar-pond-aerator-8-aermaster-direct-drive-electric-combo" %}
+  	<link rel="canonical" href="https://www.livingwateraeration.com/products/solar-pond-aerator-aermaster-direct-drive" />
+  {% elsif product.url == "/products/specialty-fittings-for-ss4-1-2-fpt-x-3-4-barb"
+    or product.url == "/products/specialty-fittings-for-ss4-1-2-fpt-x-3-8-barb" %}
+  	<link rel="canonical" href="https://www.livingwateraeration.com/products/specialty-fittings-for-ss4" />
+  {% elsif product.url == "/products/spirit-pond-stream-pump-2750-gph"
+    or product.url == "/products/spirit-pond-stream-pump-4250-gph" %}
+  	<link rel="canonical" href="https://www.livingwateraeration.com/products/spirit-pond-stream-pump" />
+  {% elsif product.url == "/products/stainless-steel-waterfall-stream-pump-3100-gph-230v"
+    or product.url == "/products/stainless-steel-waterfall-stream-pump-4100-gph-115v"
+    or product.url == "/products/stainless-steel-waterfall-stream-pump-4100-gph-230v" 
+    or product.url == "/products/stainless-steel-waterfall-stream-pump-5100-gph-115v" 
+    or product.url == "/products/stainless-steel-waterfall-stream-pump-5100-gph-230v" 
+    or product.url == "/products/stainless-steel-waterfall-stream-pump-6000-gph-115v" 
+    or product.url == "/products/stainless-steel-waterfall-stream-pump-6000-gph-230v" %}
+    <link rel="canonical" href="https://www.livingwateraeration.com/products/stainless-steel-waterfall-stream-pump" />
+  {% elsif product.url == "/products/stratus-src-series-dual-rocking-piston-compressor-3-4-hp"
+    or product.url == "/products/stratus-src-series-single-rocking-piston-compressor-1-4-hp" %}
+  <link rel="canonical" href="https://www.livingwateraeration.com/products/stratus-src-series-dual-rocking-piston-compressor" />
+  {% elsif product.url == "/products/stratus-src75-3-4-hp-rocking-piston-compressor-rebuild-kits"
+    or product.url == "/products/stratus-src25-1-4-hp-rocking-piston-compressor-repair-kit" %}
+  <link rel="canonical" href="https://www.livingwateraeration.com/products/stratus-src50-1-2-hp-rocking-piston-compressor-rebuild-kit" />
+  {% elsif product.url == "/products/submersible-mag-drive-pump-600-gph-w-volcano-waterbell-double-volcano-nozzle"
+    or product.url == "/products/submersible-mag-drive-pump-1050-gph-w-volcano-waterbell-double-volcano-nozzle"
+    or product.url == "/products/submersible-mag-drive-pump-120-gph-w-volcano-waterbell-nozzle" 
+    or product.url == "/products/submersible-mag-drive-pump-1350-gph-w-volcano-waterbell-double-volcano-foam-jet" 
+    or product.url == "/products/submersible-mag-drive-pump-200-gph-w-volcano-waterbell-nozzle" 
+    or product.url == "/products/submersible-mag-drive-pump-2200-gph"
+    or product.url == "/products/submersible-mag-drive-pump-400-gph-w-volcano-waterbell-nozzle" 
+    or product.url == "/products/submersible-mag-drive-pump-850-gph-w-volcano-waterbell-double-volcano-nozzle" %}
+    <link rel="canonical" href="https://www.livingwateraeration.com/products/submersible-mag-drive-pump" />
+  {% elsif product.url == "/products/tb-series-hi-volume-submersible-pump-hi-head-12000-gph"
+    or product.url == "/products/tb-series-hi-volume-submersible-pump-hi-head-14500-gph" %}
+  	<link rel="canonical" href="https://www.livingwateraeration.com/products/tb-series-hi-volume-submersible-pump-hi-head" />
+  {% elsif product.url == "/products/tm-series-hi-volume-submersible-pump-13500-gph"
+    or product.url == "/products/tm-series-hi-volume-submersible-pump-17500-gph" %}
+  	<link rel="canonical" href="https://www.livingwateraeration.com/products/tm-series-hi-volume-submersible-pump" />
+  {% elsif product.url == "/products/trublu-concentrated-pond-dye-1-quart-midnight-blue" %}
+  	<link rel="canonical" href="https://www.livingwateraeration.com/products/trublu-concentrated-pond-dye-1-quart-aqua-blue" />
+  {% elsif product.url == "/products/tsurumi-1-hp-115-volt-pump"
+    or product.url == "/products/tsurumi-1-hp-230-volt-pump" %}
+  	<link rel="canonical" href="https://www.livingwateraeration.com/products/tsurumi-pump" />
+  {% elsif product.url == "/products/valved-outlet-assembly-4-outlets"
+    or product.url == "/products/valved-outlet-assembly-6-valved-outlet" %}
+  	<link rel="canonical" href="https://www.livingwateraeration.com/products/valved-item-assembly-outlets" />
+  {% elsif product.url == "/products/waterfall-installation-kit-small" %}
+  	<link rel="canonical" href="https://www.livingwateraeration.com/products/waterfall-installation-kit" />
+  {% elsif product.url == "/products/gast-rotary-vane-complete-air-filter-for-rv75-rv100" %}
+  	<link rel="canonical" href="https://www.livingwateraeration.com/products/gast-rotary-vane-complete-air-filter" />
+  {% elsif product.url == "/products/gast-rotary-vane-replacement-filter-element-for-rv75-rv100" %}
+  	<link rel="canonical" href="https://www.livingwateraeration.com/products/gast-rotary-vane-replacement-filter-element" />
+  {% elsif product.url == "/products/outdoor-water-solutions-24-windmill-deluxe-pond-aerator-kit-free-shipping" %}
+  	<link rel="canonical" href="https://www.livingwateraeration.com/products/outdoor-water-solutions-20-deluxe-windmill-pond-aerator-kit-free-shipping" />
+  {% elsif product.url == "/products/three-pack-basalts-14-20-27"
+    or product.url == "/products/three-pack-basalts-20-27-35" %}
+  	<link rel="canonical" href="https://www.livingwateraeration.com/products/three-pack-basalts" />
+  {% elsif product.url == "/products/real-basalt-column-35"
+    or product.url == "/products/real-basalt-column-20"
+    or product.url == "/products/real-basalt-column-27" 
+    or product.url == "/products/real-basalt-column-14" %}
+    <link rel="canonical" href="https://www.livingwateraeration.com/products/real-basalt-column" />
+  {% elsif product.url == "/products/led-statuary-3-light-transformer-set" %}
+  	<link rel="canonical" href="https://www.livingwateraeration.com/products/led-statuary-light-transformer-set" />
+  {% elsif product.url == "/products/11-1-2-vianti-falls-kit-with-white-lights"
+    or product.url == "/products/23-1-2-vianti-falls-kit-with-blue-lights"
+    or product.url == "/products/35-1-2-vianti-falls-kit-w-white-led" 
+    or product.url == "/products/231-2-vianti-falls-kit-with-white-lights"
+    or product.url == "/products/35-1-2-vianti-falls-kit-w-blue-led" %}
+  	<link rel="canonical" href="https://www.livingwateraeration.com/products/vianti-falls-kit-with-lights" />
+  {% elsif product.url == "/products/aqua-ultraviolet-viper-uv-sterilizer-400-watts-3-230v" %}
+  	<link rel="canonical" href="https://www.livingwateraeration.com/products/aqua-ultraviolet-viper-uv-sterilizer-400-watts" />
+  {% elsif product.url == "/products/aquathol-super-k-granular-20" %}
+  	<link rel="canonical" href="https://www.livingwateraeration.com/products/aquathol-super-k-granular" />
+  {% elsif product.url == "/products/carry-pumps-intake-horn-for-1-2-1-hp" %}
+  	<link rel="canonical" href="https://www.livingwateraeration.com/products/carry-pumps-intake-horn" />
+  {% elsif product.url == "/products/fire-fountain-hb-18-manifold" %}
+  	<link rel="canonical" href="https://www.livingwateraeration.com/products/fire-fountain-manifold-1" />
+  {% elsif product.url == "/products/easypro-9000-gallon-pressurized-bead-filter" 
+    or product.url == "/products/easypro-15000-gallon-pressurized-bead-filter" %}
+  	<link rel="canonical" href="https://www.livingwateraeration.com/products/easypro-pressurized-bead-filter" />
+  {% elsif product.url == "/products/hydrothol-duckweed-coontail" %}
+  	<link rel="canonical" href="https://www.livingwateraeration.com/products/hydrothol-40-lb-box" />
+  {% elsif product.url == "/products/pro-series-medium-pond-kit-complete-for-16-x-16-pond"
+    or product.url == "/products/pro-series-medium-pond-kit-complete-for-16-x-21-pond"
+    or product.url == "/products/pro-series-medium-pond-kit-complete-for-21-x-21-pond" 
+    or product.url == "/products/pro-series-medium-pond-kit-complete-for-21-x-26-pond" %}
+    <link rel="canonical" href="https://www.livingwateraeration.com/products/pro-series-medium-pond-kit-complete" />
+  {% elsif product.url == "/products/sss671-vianti-waterfall"
+    or product.url == "/products/sss647-vianti-waterfall"
+    or product.url == "/products/sss635-vianti-waterfall" 
+    or product.url == "/products/sss623-vianti-waterfall" 
+    or product.url == "/products/sss611-vianti-waterfall" 
+    or product.url == "/products/sss59-vianti-waterfall"
+    or product.url == "/products/sss471-vianti-waterfall"
+    or product.url == "/products/sss71-vianti-waterfall" 
+    or product.url == "/products/sss35-vianti-waterfall"
+    or product.url == "/products/sss231-vianti-waterfall" %}
+    <link rel="canonical" href="https://www.livingwateraeration.com/products/vianti-waterfall" />
+  {% elsif product.url == "/products/white-led-strip-light-11-long-15-cord-12v-includes-10watt-transformer" 
+    or product.url == "/products/white-led-strip-light-23-long-15-cord-12v-includes-10watt-transformer" %}
+  	<link rel="canonical" href="https://www.livingwateraeration.com/products/white-led-strip-light" />
+  {% elsif product.url == "/products/1-20-hp-gast-diaphragm-compressor" %}
+  	<link rel="canonical" href="https://www.livingwateraeration.com/products/gast-diaphragm-compressor" />
+  {% else %} 
+  	<link rel="canonical" href="{{ canonical_url }}">  
+  {% endif %}
+  
+  {% if settings.favicon != blank %}
+  	<link rel="shortcut icon" href="{{ settings.favicon | img_url: '32x32' }}" type="image/png">
+  {% endif %}
+  
+  {% capture seo_title %}
+  {{ page_title }}
+  {% if current_tags %}{%- assign meta_tags = current_tags | join: ', ' %} &ndash; {{ 'general.meta.tags' | t: tags: meta_tags -}}{% endif %}
+        {% if current_page != 1 %}&ndash; {{ 'general.meta.page' | t: page: current_page }}{% endif %}
+  {% unless page_title contains shop.name %}&ndash; {{ shop.name }}{% endunless %}
+  {% endcapture %}
+
+  {% if template == "product" %}
+
+  {% elsif template contains "collection" %}
+  	<meta name="description" content="Check out our wide range of {{ collection.title | escape }} products at unbeatable prices. Free Shipping on orders above $99!">
+  {% else %}
+    {% if page_description %}
+    	<meta name="description" content="{{ page_description | strip_html | escape | truncate: 160 }}">
+    {% else %}
+    	<meta name="description" content="Welcome to Living Water Aeration. Check out our products and deals today. We offer free Shipping on orders above $99!">
+    {% endif %}
+  {% endif %}
+  
+  <meta name="google-site-verification" content="zT44m3FLQOH1Gyt5MgJlW60PlZIqUYFP4BUSXcNLq5k" />
+  
+  {% include 'social-meta-tags' %}
+  {% include 'vela-header-styles' %}
+  {% include 'modal' %}
+  
+  {%- include 'bold-common' -%}
+  
+  {% include 'vela-header-javascript' %}
+    	  
+  {% if settings.is-speed_optimized == false or is_admin_interface %}
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-7833234-1"></script>
+    <!-- Global site tag (gtag.js) - Google Ads: 1035098196 -->
+
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'AW-1035098196');
+      gtag('config', 'AW-1035098196/wZWaCODB3cMBENSwye0D', {
+        'phone_conversion_number': '1-877-799-7572'
+      });
+    </script>
+  {% else %}
+    <script>
+      function lazyload_googletag() {
+        loadJS('https://www.googletagmanager.com/gtag/js?id=UA-7833234-1');
+
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'AW-1035098196');
+        gtag('config', 'AW-1035098196/wZWaCODB3cMBENSwye0D', {
+          'phone_conversion_number': '1-877-799-7572'
+        });
+      }
+    </script>
+  {% endif %}
+   
+  {% if settings.is-speed_optimized == false or is_admin_interface %}
+  	<script async type="text/javascript" src="https://static.klaviyo.com/onsite/js/klaviyo.js?company_id=Hbwmic"></script>
+  {% else %}
+  	<script>
+      function lazyload_klaviyo() {
+  		loadJS('https://static.klaviyo.com/onsite/js/klaviyo.js?company_id=Hbwmic');
+      }
+  	</script>
+  {% endif %}
+  
+  <script>
+    function GetRevenueValue(){return 6;}
+  </script>
+  <script> window.uetq = window.uetq || []; window.uetq.push({ 'gv': GetRevenueValue()});</script>
+  
+  {% if settings.is-speed_optimized == false or is_admin_interface %}
+  <script>(function(w,d,t,r,u){var f,n,i;w[u]=w[u]||[],f=function(){var o={ti:"5189529"};o.q=w[u],w[u]=new UET(o),w[u].push("pageLoad")},n=d.createElement(t),n.src=r,n.async=1,n.onload=n.onreadystatechange=function(){var s=this.readyState;s&&s!=="loaded"&&s!=="complete"||(f(),n.onload=n.onreadystatechange=null)},i=d.getElementsByTagName(t)[0],i.parentNode.insertBefore(n,i)})(window,document,"script","//bat.bing.com/bat.js","uetq");</script>
+  {% else %}
+    <script>
+      function lazyload_batbing() {
+      	(function(w,d,t,r,u){var f,n,i;w[u]=w[u]||[],f=function(){var o={ti:"5189529"};o.q=w[u],w[u]=new UET(o),w[u].push("pageLoad")},n=d.createElement(t),n.src=r,n.async=1,n.onload=n.onreadystatechange=function(){var s=this.readyState;s&&s!=="loaded"&&s!=="complete"||(f(),n.onload=n.onreadystatechange=null)},i=d.getElementsByTagName(t)[0],i.parentNode.insertBefore(n,i)})(window,document,"script","//bat.bing.com/bat.js","uetq");
+      }
+    </script>
+  {% endif %}
+  
+  {% if template contains 'product' %}
+    <script type="application/ld+json">
+        {
+         "@context": "http://schema.org",
+         "@type": "BreadcrumbList",
+         "itemListElement":
+         [
+          {% for collection in product.collections limit: 1%}
+          {
+           "@type": "ListItem",
+          "position": 1,
+          "item":
+           {
+             "@id": "{{collection.url}}",
+             "name": "{{collection.title}}"
+           }
+          },
+          {% endfor %}
+          {
+           "@type": "ListItem",
+          "position": 2,
+          "item":
+           {
+             "@id": "{{ product.url  }}",
+             "name": "{{ product.title  }}"
+           }
+          }
+         ]
+        }
+    </script>
+  {% endif %}
+  
+  {% if handle contains 'pond-water-management'
+  	or handle contains 'luxury-bird-houses-complete-with-swimming-pool-furniture'
+  	or handle contains 'different-type-of-aquatic-plants-on-your-farm-pond'
+  	or handle contains 'pond-water-aeration-systems'
+  	or handle contains 'extension-offers-online-courses-to-help-with-pond-management' 
+  	or handle contains 'facts-about-pond-management'
+  	or handle contains 'turbidity-5-step-solution-to-clear-a-muddy-pond' 
+  	or handle contains 'marinas-and-canals-common-problems' 
+  	or handle contains 'things-to-know-about-pond-maintenance'
+  	or handle contains 'things-to-know-about-pond-algae' 
+  	or handle contains 'controlling-pond-algae' 
+  	or handle contains 'how-a-fish-becomes-fertilizer' 
+  	or handle contains 'predator-birds-in-your-pond' 
+  	or handle contains 'tips-for-an-environmentally-friendly-garden' 
+  	or handle contains 'different-type-of-great-fountains' 
+  	or handle contains 'how-to-stop-algae-farm-taking-over-your-pond' 
+  	or handle contains 'plants-and-their-personalities' 
+  	or handle contains 'keeping-your-water-clear' 
+  	or handle contains '630' 
+  	or handle contains 'jeff-foxworthys-bass-pond' 
+  	or handle contains 'difference-between-second-home-and-second-pond' 
+  	or handle contains 'pond-winterizing' 
+  	or handle contains 'big-payback-with-eco-friendly-lake-pond-management' 
+  	or handle contains 'build-an-ecosystem-pond' 
+  	or handle contains 'tips-in-how-to-give-your-fish-enough-oxygen' 
+  	or handle contains '693' %}
+  	<meta name="robots" content="noindex">
+  {% endif %}
+      
+  {% if template contains 'collection' %}
+  	{% paginate collection.products by settings.pagination_limit %}
+  		{% include 'seo_head' %}
+  	{% endpaginate %}
+  {% endif %}
+  
+  {% if template contains 'product' %}
+    <link rel="amphtml" href="//{{shop.domain}}/apps/fireamp/products/{{product.handle}}" >
+  {% endif %}
+  
+  {% if template contains 'collection' %}
+    {% assign collectionpageurl = content_for_header| split:'"pageurl":"' | last | split:'"' | first %}
+    {% assign collectionHandle = collectionpageurl | split : "collections\/" | last %}
+    
+  	{% if collectionpageurl contains '?' or collectionHandle contains '/' %}
+    {% else %}
+    <link rel="amphtml" href="//{{shop.domain}}/apps/fireamp/collections/{{collection.handle}}" >
+    {% endif %}
+  {% endif %}
+  
+  {% if template contains 'blog' %}  
+    <link rel="amphtml" href="//{{shop.domain}}/apps/fireamp/blogs/{{blog.handle}}" >
+  {% endif %}
+  
+  {% if template contains 'article' %}
+    <link rel="amphtml" href="//{{shop.domain}}/apps/fireamp/blogs/{{article.handle}}" >
+  {% endif %}
+  
+  <script>
+    ! function(e) { var t = function(t, o, n, id) { "use strict"; var r; var a = e.document.getElementsByTagName("script")[0]; var c = e.document.createElement("script"); return "boolean" == typeof o && (r = n, n = o, o = r), c.src = t, c.async = !n, id == null ? '': c.id = id, a.parentNode.insertBefore(c, a), o && "function" == typeof o && (c.onload = o), c};"undefined" != typeof module ? module.exports = t : e.loadJS = t }("undefined" != typeof global ? global : this);
+  </script>
+  
+  {% if settings.is-speed_optimized and is_admin_interface == false %}
+  <script>
+  document.addEventListener("StartKernelLoading", function(event){
+    lazyload_googletag();    
+    lazyload_klaviyo();    
+    lazyload_batbing();    
+    console.log("1 header = StartKernelLoading");
+  })
+  document.addEventListener("StartOtherLoading", function(event){  
+    console.log('2 header = StartOtherLoading');
+  })
+  </script>
+
+  {% capture asyncLoad %}
+  window.addEventListener('load', function load(event){setTimeout(function(){ asyncLoad(); document.dispatchEvent(new CustomEvent('StartAppLoading'));}, 3500)},false);
+  document.addEventListener("StartAsyncLoading", function(event){
+      console.log("3 header - StartAsyncLoading");
+      document.dispatchEvent(new CustomEvent('StartKLoad'));
+  });
+  {% endcapture %}
+
+  {% capture KernalHead %}
+  document.addEventListener('StartKernelLoading', function() { var customDocumentWrite = 
+  {% endcapture %}
+
+  {% capture KernalFooter %}
+  loadJS(eventsListenerScript.src); });
+  {% endcapture %}
+
+  {% capture content_header %}
+  {{
+          content_for_header
+  | replace: ' x.parentNode.insertBefore(s, x)', 'loadJS(urls[i])' 
+  | remove: "window.attachEvent('onload', asyncLoad)" 
+  | replace: "window.addEventListener('load', asyncLoad, false);", asyncLoad 
+  | replace: 'var customDocumentWrite = ', KernalHead 
+  | replace: "document.getElementsByTagName('head')[0].appendChild(eventsListenerScript);", KernalFooter
+  | replace: "DOMContentLoaded", 'StartKLoad'
+   }}
+  {% endcapture %}
+
+    {{ content_header }}
+
+  {%- else -%}
+     {{ content_for_header }}
+  {%- endif -%}
+
+</head>
+
+<body id="{{ page_title | handle }}" class="template-{{ template | split: '.' | first }}{% if settings.header_float_enable %} velaFloatHeader{% endif %}">
+    
+  {% include 'vela-template' %}
+  
+  <div id="pageContainer" class="isMoved">
+    
+    {% include 'vela-header-section' %}
+    
+    <main class="mainContent">
+      
+      {% if template == 'index' %}
+        {% section 'full-width-banner'%}
+        <!--           		{ % include 'collection-block' % } -->
+        <section id="lake-pond" class="container">
+          {% section 'banner' %}
+          {% section 'banner2' %}
+          {% section 'banner3' %}
+          {% section 'banner4' %}
+        </section>
+      {% endif %}
+      
+      {{ content_for_layout }}
+      
+      {% if template == 'index' %}
+      	{% include 'content-text' %}
+        <script>
+          $(document).ready(function(){
+            //                     $( ".portfolioDisc" ).bind( "tap", tapHandler );
+            //                     $("clicked-block").bing("tap", tapHandler);
+
+            //                     function tapHandler( event ){
+            //                       console.log(event.target);
+            //                       if($(event.target).hasClass("clicked-block")){
+            //                         alert('si');
+            //                       	$(event.target).removeClass('clicked-block');
+            //                       }else{
+            //                         alert('no');
+            //                         $(event.target).removeClass('clicked-block');
+            //                       	$( event.target ).addClass( "clicked-block" );
+            //                       }
+            //                     }
+
+            // 					   $('.lake-pond-info').on('click',function(){
+            //                          if(screen.width <= 768){
+            //                            $('.portfolioDisc').removeClass('clicked-block');
+            //                            $(this).find('.portfolioDisc').addClass('clicked-block');
+            //                          }
+            //                       });
+            $('a.proFeaturedImage img').each(function(){
+              jQuery(this).prop('src',$(this).prop('src').replace(/_small/g,""));
+            });
+          });
+        </script>
+
+      {% endif %}
+    </main>
+    
+    {% section 'vela-footer' %}
+  </div>
+  
+  {% include 'vela-ajaxcart' %}
+  {% include 'vela-modal' %}
+  {% include 'vela-footer-javascript' %}
+  {% include 'booster-discounts' %}
+  
+  {% if template == 'product' %}
+  <script src="https://cdn2.searchmagic.com/production_files/search-magic-is-livingwateraeration-shopify.min.js" 
+          id="ysw-search-magic-script-is"></script>
+  {% endif %}
+
+  {% if template != 'collection' and template != 'product' and template != 'collection.Landing'  %}
+  <script src="https://cdn2.searchmagic.com/production_files/search-magic-s-livingwateraeration-shopify.min.js" 
+          id="ysw-search-magic-script-s"></script>
+  {% endif %}
+      
+  <script>
+    load = true;
+    $('body').mouseleave(function(){
+      if(load){
+          setTimeout(function(){
+          // Set the date we're counting down to
+          var countDownDate = new Date();
+              countDownDate.setMinutes(countDownDate.getMinutes() + 5);
+              countDownDate.setSeconds(0);
+
+          // Update the count down every 1 second
+          var x = setInterval(function() {
+
+            // Get today's date and time
+            var now = new Date().getTime();
+
+            // Find the distance between now and the count down date
+            var distance = countDownDate - now;
+
+            // Time calculations for minutes and seconds
+            var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            if($('.timer').length > 0){
+                $('.timer').remove();
+            }
+            $('#UEV_popup_code').append("<div class='timer'> 0" + minutes + ":" + seconds + "</div>");
+            // If the count down is over, write some text
+            if (distance < 0) {
+              clearInterval(x);
+              $('#UEV_close').click();
+            }
+
+          }, 1000);
+        },500);
+        load = false;
+      }
+    });
+  </script>
+  
+  {% if template == 'collection' %}
+  	
+  <script>
+    $('body').mouseleave(function(){
+      setTimeout(function(){
+      	// Set the date we're counting down to
+        var countDownDate = new Date();
+            countDownDate.setMinutes(countDownDate.getMinutes() + 5);
+            countDownDate.setSeconds(0);
+
+        // Update the count down every 1 second
+        var x = setInterval(function() {
+
+          // Get today's date and time
+          var now = new Date().getTime();
+
+          // Find the distance between now and the count down date
+          var distance = countDownDate - now;
+
+          // Time calculations for minutes and seconds
+          var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+          var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+          if($('.timer').length > 0){
+              $('.timer').remove();
+          }
+          $('#UEV_popup_code').append("<div class='timer'> 0" + minutes + ":" + seconds + "</div>");
+          // If the count down is over, write some text
+          if (distance < 0) {
+            clearInterval(x);
+            $('#UEV_close').click();
+          }
+
+        }, 1000);
+      },1000);
+    	
+    });
+    
+    
+    $('#btnMenuMobile').on('click',function(){
+        $('body').addClass('menuMobileActive');
+    });
+  	$('.close.btnMenuClose').on('click',function(){
+        $('body').removeClass('menuMobileActive');
+    });
+  </script>
+  {% endif %}
+  
+  <script>
+    (function() {
+      var noJsProducts = document.getElementById("nojsProducts");
+      
+      if (noJsProducts) {
+        document.getElementById("nojsProducts").innerHTML = "";
+      }
+    })();
+  </script>  
+  
+  {% if settings.is-speed_optimized == false or is_admin_interface %}
+  <script type="text/javascript" src="https://cdn-stamped-io.azureedge.net/files/widget.min.js"></script>
+  <!-- <script type="text/javascript">//<![CDATA[ 
+  StampedFn.init({ apiKey: '##publicAPIKey##', storeUrl: '##storeUrl##' }); 
+  // ]]></script> -->
+  {% else %}
+  <script>
+    function lazyload_widget() {
+    	loadJS('https://cdn-stamped-io.azureedge.net/files/widget.min.js');
+    }
+  </script>
+  {% endif %}
+  
+  <!-- spurit_uev-added -->
+  {% include 'spurit_uev-theme-snippet' %}
+  <!-- /spurit_uev-added -->
+  
+  {% if settings.is-speed_optimized == false or is_admin_interface %}
+  <script type="text/javascript" src="//cdn.callrail.com/companies/250073266/4110561bdbd9ecb836e2/12/swap.js"></script>
+  {% else %}
+  <script>
+    function lazyload_swap(){
+    	loadJS('//cdn.callrail.com/companies/250073266/4110561bdbd9ecb836e2/12/swap.js');
+    }
+  </script>
+  {% endif %}
+  
+  
+
+  {% if settings.is-speed_optimized and is_admin_interface == false %}
+  <script>
+    (function () {
+      if ( typeof window.CustomEvent === "function" ) return false; //If not IE
+
+      function CustomEvent ( event, params ) {
+        params = params || { bubbles: false, cancelable: false, detail: undefined };
+        var evt = document.createEvent( 'CustomEvent' );
+        evt.initCustomEvent( event, params.bubbles, params.cancelable, params.detail );
+        return evt;
+      }
+
+      CustomEvent.prototype = window.Event.prototype;
+      window.CustomEvent = CustomEvent;
+    })();
+
+    document.addEventListener("StartAppLoading", function(event) {
+      setTimeout(function(){
+        document.dispatchEvent(new CustomEvent('StartKernelLoading'));
+
+        $('img.lazyloadagc').each(function(index) {
+          $(this).attr("src", $(this).attr("data-src"));
+        });
+                        
+        lazyload_widget();      
+        lazyload_afterpay();        
+        lazyload_swap();
+        
+        console.log('1 footer - StartKernelLoading');
+      }, 500);
+
+      setTimeout(function(){
+        document.dispatchEvent(new CustomEvent('StartOtherLoading'));
+        console.log('2 footer - StartOtherLoading');
+      }, 1500);
+
+      setTimeout(function(){
+        document.dispatchEvent(new CustomEvent('StartAsyncLoading'));
+        console.log('3 footer - StartAsyncLoading');
+      }, 2500);
+    });
+  </script>
+  {% endif %}
+
+
+  <script>
+    (function(root, factory) {if (typeof exports === "object") {module.exports = factory(root);} else if (typeof define === "function" && define.amd) {define([], factory(root));} else {root.LazyLoadagc = factory(root);}})(typeof global !== "undefined" ? global : this.window || this.global, function(root) {"use strict";const defaults = {src: "data-src",srcset: "data-srcset",selector: ".lazyloadagc"};const extend = function() {let extended = {};let deep = false;let i = 0;let length = arguments.length;if (Object.prototype.toString.call(arguments[0]) === "[object Boolean]") {deep = arguments[0];i++;}let merge = function(obj) {for (let prop in obj) {if (Object.prototype.hasOwnProperty.call(obj, prop)) {if (deep && Object.prototype.toString.call(obj[prop]) === "[object Object]") {extended[prop] = extend(true, extended[prop], obj[prop]);} else {extended[prop] = obj[prop];}}}};for (; i < length; i++) {let obj = arguments[i];merge(obj);}return extended;};function LazyLoadagc(images, options) {this.settings = extend(defaults, options || {});this.images = images || document.querySelectorAll(this.settings.selector);this.observer = null;this.init();}LazyLoadagc.prototype = {init: function() {if (!root.IntersectionObserver) {this.loadImages();return;}let self = this;let observerConfig = {root: null,rootMargin: "0px",threshold: [0]};this.observer = new IntersectionObserver(function(entries) {entries.forEach(function(entry) {if (entry.intersectionRatio > 0) {self.observer.unobserve(entry.target);let src = entry.target.getAttribute(self.settings.src);let srcset = entry.target.getAttribute(self.settings.srcset);if ("img" === entry.target.tagName.toLowerCase()) {if (src) {entry.target.src = src;}if (srcset) {entry.target.srcset = srcset;}} else {entry.target.style.backgroundImage = "url(" + src + ")";}}});}, observerConfig);this.images.forEach(function(image) {self.observer.observe(image);});},loadAndDestroy: function() {if (!this.settings) {return;}this.loadImages();this.destroy();},loadImages: function() {if (!this.settings) {return;}let self = this;this.images.forEach(function(image) {let src = image.getAttribute(self.settings.src);let srcset = image.getAttribute(self.settings.srcset);if ("img" === image.tagName.toLowerCase()) {if (src) {image.src = src;}if (srcset) {image.srcset = srcset;}} else {image.style.backgroundImage = "url(" + src + ")";}});},destroy: function() {if (!this.settings) {return;}this.observer.disconnect();this.settings = null;}};root.lazyloadagc = function(images, options) {return new LazyLoadagc(images, options);};if (root.jQuery) {const $ = root.jQuery;$.fn.lazyloadagc = function(options) {options = options || {};options.attribute = options.attribute || "data-src";new LazyLoadagc($.makeArray(this), options);return this;}; } return LazyLoadagc;});
+    jQuery(document).ready(function($){
+      $('img.lazyloadagc').lazyloadagc();
+    });
+  </script>
+
+  
+</body>
+</html>
+
+<!--BeginAfterpay-->
+<!--CrucialCommerceApps-->
+<script type="text/javascript">
+// Overrides:
+// var afterpay_product_selector = "#product-price-selector";
+// var afterpay_cart_integration_enabled = true;
+// var afterpay_cart_static_selector = "#cart-subtotal-selector";
+// Non-editable fields:
+var afterpay_shop_currency = {{ shop.currency | json }};
+var afterpay_cart_currency = {{ cart.currency.iso_code | json }};
+var afterpay_shop_money_format = {{ shop.money_format | json }};
+var afterpay_shop_permanent_domain = {{ shop.permanent_domain | json }};
+var afterpay_theme_name = {{ theme.name | json }};
+var afterpay_product = {{ product | json }};
+var afterpay_current_variant = {{ product.selected_or_first_available_variant | json }};
+var afterpay_cart_total_price = {{ cart.total_price | json }};
+</script>
+
+{% if settings.is-speed_optimized == false or is_admin_interface %}
+<!--  Afterpay fast load script  -->
+<script src='https://afterpay.crucialcommerceapps.com/appJS?shop={{shop.domain}}'></script>
+<!--EndAfterpay-->
+{% else %}
+<script>
+  function lazyload_afterpay() {
+  	loadJS('https://afterpay.crucialcommerceapps.com/appJS?shop={{shop.domain}}');
+  }
+</script>
+{% endif %}

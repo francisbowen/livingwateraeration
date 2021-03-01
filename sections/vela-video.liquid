@@ -1,0 +1,105 @@
+{% if section.settings.section_enable %}
+<div class="velaVideo{% if section.settings.subfixclass !=blank %} {{section.settings.subfixclass}}{% endif %}" style="background-color: {{section.settings.color_bg }};{% if section.settings.img_bg !=blank %} background-image: url({{ section.settings.img_bg | img_url: "master" }});{% endif %}
+                                     {% if section.settings.margin_block !=blank %}margin:{{section.settings.margin_block}}; {% endif %}
+                                     {% if section.settings.padding_block !=blank %}padding:{{section.settings.padding_block}}; {% endif %}">
+   	<div class="container{% if section.settings.full_with %}-full{% endif %}">
+   		<div class="velaContent">		
+	   		<div class="row">
+	   			<div class="col-xs-12 col-sm-6">
+			   		{% if section.settings.video_title != blank %}
+			   		<h4 class="velaPageSubTitle">
+			   			<span>{{ section.settings.video_title }}</span>
+			   		</h4>		
+			   		{% endif %}
+			   		{% if section.settings.video_desc !=blank %}
+				   		<div class="videoDesc">
+				   			{{ section.settings.video_desc }}			   			
+				   		</div>
+			   		{% endif %}	   				
+	   			</div>
+	   			{% if section.settings.video_link !=blank %}
+		   			<div class="col-xs-12 col-sm-6">
+		   				<div class="videoContainer">
+		   					<iframe width="100%" height="325" src="https://www.youtube.com/embed/{{section.settings.video_link}}" frameborder="0" allowfullscreen></iframe>
+		   				</div>
+		   			</div>
+		   		{% endif %}
+	   		</div>
+	   	</div>
+   	</div>
+</div>
+{% endif %}
+{% schema %}
+   {
+     	"name": "Vela Video",
+     	"class": "velaFramework",
+     	"settings":[      
+         {
+            "type": "header",
+            "content": "Design Section"
+         },
+         {
+            "type": "checkbox",
+            "id": "section_enable",
+            "label": "Enabel Section?",
+            "default": true
+         },
+         {
+            "type": "checkbox",
+            "id": "full_with",
+            "label": "Enabel Full Width?"
+         },
+         {
+         	"type": "text",
+         	"id": "subfixclass",
+         	"label": "Add class"
+         },
+         {
+            "type": "image_picker",
+            "id": "img_bg",
+            "label": "background image for block"
+         },
+         {
+	        "type": "color",
+	        "id": "color_bg",
+	        "label": "Background Color",
+	        "default": "rgba(0,0,0,0)"
+	      },
+         {
+            "type": "text",
+            "id": "margin_block",
+            "label": "Margin",
+            "placeholder": "0px 0px"
+         },
+         {
+            "type": "text",
+            "id": "padding_block",
+            "label": "Padding",
+            "placeholder": "0px 0px"
+         },
+         {
+            "type": "header",
+            "content": "General Settings"
+         },
+         {
+	        	"type": "text",
+	        	"id": "video_title",
+	        	"placeholder": "Title for Video",
+	        	"label": "Video Title"
+	      },
+	      {
+	        	"type": "textarea",
+	        	"id": "video_desc",
+	        	"placeholder": "Desc for Video",
+	        	"label": "Video Description"
+	      },
+	      {
+	        	"type": "text",
+	        	"id": "video_link",
+	        	"label": "ID Link video?",
+	        	"info": "Ex: https:\/\/www.youtube.com\/watch?v=g3uRJT_yilw ->ID: g3uRJT_yilw"
+	      }
+
+      ]
+   }
+{% endschema %}

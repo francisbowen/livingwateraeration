@@ -1,0 +1,70 @@
+{%- if request.host contains 'myshopify.com' -%}
+   {%- assign is_admin_interface = true -%}
+{%- else -%}
+   {%- assign is_admin_interface = false -%}
+{%- endif -%}
+
+{%- if template.name == 'cart' -%}
+   {%- assign is_admin_interface = true -%}
+{%- endif -%}
+
+{% for link in linklists.product-related.links %}
+{% if link.title == product.title %}
+{% if link.levels >= 1 %}
+
+<section class="proRelated">
+  <div id="relatedProducts" class="velaProducts">
+    <h3 class="velaTitle velaHomeTitle">
+      <span class="title">Related Products</span> 
+    </h3>
+    <div class="velaContent">
+      <div class="velaOwlRow owlCarouselPlay proList grid">
+        <div class="owl-carousel" data-nav="true" data-autoplay="true" data-autospeed="800" data-speed="10000"
+             data-columnone="4" data-columntwo="3" data-columnthree="2" data-columnfour="1">
+
+          {% for sub_link in link.links %}
+          <div class="item">
+            <div class="velaProBlock {{ product-grid-item }} {% if settings.multiple_image_product_enable %}multiple_image{% endif %}"
+                 data-price="{{ product.price | money_without_currency }}">
+              <div class="proHImage">
+                <a class="proFeaturedImage" href="{{ sub_link.url }}">
+                  <img 
+                       {% if settings.is-speed_optimized and is_admin_interface == false %}
+                       class="lazyloadagc img-responsive image-primay"
+                       src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
+                       data-src="{{ all_products[sub_link.handle].featured_image | product_img_url:'large' }}"
+                       {% else %}
+                       class="img-responsive image-primay" 
+                       src="{{ all_products[sub_link.handle].featured_image | product_img_url:'large' }}"
+                       {% endif %}
+                       
+                       alt="{{ all_products[sub_link.handle].featured_image.alt | escape }}" />
+                </a>
+              </div>
+              <div class="proContent">
+                <h5 class="proName">
+                  <a href="{{ sub_link.url }}">{{ sub_link.title }}</a>
+                </h5>
+                <div class="proPrice">
+                  <div class="priceProduct priceSale">
+                    {{ all_products[sub_link.handle].price | money }}
+                  </div>
+                  {% if on_sale %}
+                  <div class="priceProduct priceCompare">
+                    {{ all_products[sub_link.handle].compare_at_price | money }}
+                  </div>
+                  {% endif %}
+                </div>
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endif %}
+ {% endif %}
+{% endfor %}

@@ -1,0 +1,11 @@
+<div id="velaSearchTopCustom" class="visible-sm col-sm-12 text-right col-md-12 visible-xs">
+<!--   	<div class="tag-line">Free Shipping on Orders Over $99</div> -->
+    <form id="velaSearchbox" class="formSearchCustom" action="/search" method="get" style="display:inline-block;width: 100%;">
+        <input type="hidden" name="type" value="product">
+        <input class="velaSearch form-control custom" type="search" name="query" value="{{ search.terms | escape }}" placeholder="{{ 'general.search.placeholder' | t }}" autocomplete="off" />
+        <button id="velaSearchButton" class="btnVelaSearchCustom" type="submit" >
+            <span><i class="fa fa-search"></i></span>
+        </button>
+    </form>
+</div>
+<!-- visible-lg visible-md -->

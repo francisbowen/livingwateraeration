@@ -1,0 +1,209 @@
+{%- if request.host contains 'myshopify.com' -%}
+   {%- assign is_admin_interface = true -%}
+{%- else -%}
+   {%- assign is_admin_interface = false -%}
+{%- endif -%}
+
+{%- if template.name == 'cart' -%}
+   {%- assign is_admin_interface = true -%}
+{%- endif -%}
+
+<div id="loading" style="display:none;"></div>
+{% if settings.loading_enable %}
+    <div id="loadingSite">
+        <div class="loader"></div>
+    </div>
+{% endif %}
+<div id="newsletterAlert" class="modal fade" style="display:none;">
+	<div class="modal-dialog modal-sm">
+		<div class="modal-content">
+          	<div class="alert alert-success">
+          		<div class="newsletterAlert">{{ 'general.newsletter_form.alertsuccess' | t }}</div>
+          	</div>
+		</div>
+	</div>
+</div>
+{% if settings.quickview_enable %}
+	{% assign count_images = product.images | size %}
+	{% assign column_center = 'col-sm-12 col-md-12' %}
+	<div id="velaQuickView" style="display:none;">
+	    <div class="quickviewOverlay"></div>
+	    <div class="jsQuickview"></div>
+	    <div id="quickviewModal" class="quickviewProduct" style="display:none;">
+	    	<a title="Close" class="quickviewClose" href="javascript:void(0);"></a>
+	        <div class="proBoxPrimary row">
+	            <div class="proBoxImage col-xs-12 col-sm-12 col-md-5">
+	                <div class="proFeaturedImage">
+	                    <a class="proImage" title="" href="#">
+                        	<img 
+                                 {% if settings.is-speed_optimized and is_admin_interface == false %}
+                                 class="lazyloadagc img-responsive proImageQuickview"
+                                 src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
+                                 data-src="{{ 'loading.gif' | asset_url }}" 
+                                 {% else %}
+                                 class="img-responsive proImageQuickview"
+                                 src="{{ 'loading.gif' | asset_url }}" 
+                                 {% endif %}
+                                 alt="Quickview"  />
+                        	<span class="loadingImage"></span>
+                        </a>
+	                </div>
+	                <div class="proThumbnails proThumbnailsQuickview clearfix">
+	                    <div class="owl-thumblist">
+                            <div class="owl-carousel">
+
+                            </div>
+                        </div>
+	                </div>
+	            </div>
+	            <div class="proBoxInfo col-xs-12 col-sm-12 col-md-7">
+	                <h3 class="quickviewName">&nbsp;</h3>
+	                <div class="quickviewAvailability{% if settings.product_available_enable == false %} hidden{% endif %}"></div>
+	                <h5 class="quickViewVendor {% if settings.product_vendor_enable == false %} hidden{% endif %}"></h5>
+	                <h5 class="quickViewType {% if settings.product_type_enable == false %} hidden{% endif %}"></h5>
+	                <div class="proShortDescription rte"></div>
+	                <form action="/cart/add" method="post" enctype="multipart/form-data" class="formQuickview form-ajaxtocart">
+                        <div class="proPrice clearfix">
+                            <span class="priceProduct pricePrimary"></span>
+                            <span class="priceProduct priceCompare"></span>
+                        </div>
+                        <div class="proVariantsQuickview"><select name='id' style="display:none"></select></div>
+                        <div class="proQuantity">
+                            <label for="Quantity" class="qtySelector">{{ 'products.product.quantity' | t }}</label>
+                            <input type="number" id="Quantity" name="quantity" value="1" min="1" class="qtySelector">
+                        </div>
+                        <div class="proButton">
+                            <button type="submit" name="add" class="btn btnAddToCart">
+                                <span>{{ 'products.product.add_to_cart' | t }}</span>
+                            </button>
+                        </div>
+                    </form>
+	            </div>
+	        </div>
+	    </div>    
+	</div>
+{% endif %}
+{% if settings.gotop_enable %}
+	<div id="goToTop" class="hidden-xs hidden-sm"><span class="fa fa-long-arrow-up"></span></div>
+{% endif %}
+{% if settings.vela_panelconfig %}
+    <div id="velaConfigSection" class="menuSectionConfig">
+      	<div class="menuSsWrap">
+          	<div class="btnConfigSection"><i class="fa fa-cog fa-spin"></i></div>
+          	<h2 class="menuSsHeading">Vela menu Section<span class="closeMenu"></span></h2>
+            <div class="menuSsContent">
+                <ul class="menuListPage list-unstyled">
+                    <li class="menuItem">
+                        <a href="/">Home Page (Index)</a>
+                    </li>
+                    <li class="menuItem">
+                        <a href="/collections/all">Collection Page</a>
+                    </li>
+                    <li class="menuItem">
+                        <a href="/collections/all">Product Page</a>
+                    </li>
+                    <li class="menuItem">
+                        <a href="/cart">Cart Page</a>
+                    </li>
+                    <li class="menuItem">
+                        <a href="/blogs/news">Blog Page</a>
+                    </li>
+                    <li class="menuItem">
+                        <a href="/pages/contact-us">Contact Page</a>
+                    </li>
+                    <li class="menuItem">
+                        <a href="/pages/about-us">About Page</a>
+                    </li>
+                    <li class="menuItem">
+                        <a href="/404page">404 Page</a>
+                    </li>
+                    <li class="menuItem">
+                        <a href="/pages/password">Password Page</a>
+                    </li>
+                </ul>
+            </div>
+      	</div>
+    </div>
+{% endif %}
+{% if settings.vela_newslettermodal_enable %}
+    {% if template contains 'index' %}
+        <div id="velaNewsletterModal" class="hidden">
+            <div class="newsletterModal">
+                <div class="velaBlock velaNewsletterModal">
+                    <h3 class="velaTitle">{{ settings.vela_newslettermodal_titile }}</h3>
+                    <div class="velaContent">
+                        {% if settings.vela_newslettermodal_description != blank %}
+                            <div class="newsletterDescription">{{ settings.vela_newslettermodal_description }}</div>
+                        {% endif %}
+                        {% if settings.vela_newslettermodal_mailchimp %}
+                            {% assign form_action = settings.newsletter_formmodal_action %}
+                            <form action="{{ form_action }}" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" target="_blank" class="formNewsletter clearfix">
+                                <div class="form-group">
+                                    <input type="email" value="{% if customer %}{{ customer.email }}{% endif %}" placeholder="{{ 'general.newsletter_form.newsletter_email' | t }}" name="EMAIL" id="mail" class="form-control" aria-label="{{ 'general.newsletter_form.newsletter_email' | t }}">
+                                    <button id="subscribe" class="btn btnNewsletter" type="submit">
+                                        <i class="pe-7s-paper-plane"></i>
+                                        <span>{{ 'general.newsletter_form.submit' | t }}</span>
+                                    </button>
+                                </div>
+                            </form>
+                        {% else %}
+                            {% form 'customer' %}
+                                {% if form.posted_successfully? %}
+                                <script type="text/javascript">
+                                    $(document).ready(function() {
+                                        var date = new Date();
+                                        var minutes = {{ settings.vela_newslettermodal_cookie }};
+                                        var chkShowAgain = $('#chkNewsletterModal');
+                                        date.setTime(date.getTime() + (minutes * 60 * 1000));
+                                        $('#newsletterAlert').modal();
+                                        $('#velaNewsletterModal').addClass('hidden');
+                                        if(chkShowAgain.is(':checked')){
+                                            $.cookie('newLetterModal', 'closed', {expires:dateCookie, path:'/'});
+                                        }
+                                    });
+                                </script>
+                                {% endif %}
+                                <div class="form-group">
+                                    <input class="form-control" id="newsletter-input" type="email" name="contact[email]" placeholder="{{ 'general.newsletter_form.newsletter_email' | t }}">
+                                    <button class="btn btnNewsletter" type="submit">
+                                        <span>{{ 'general.newsletter_form.submit' | t }}</span>
+                                    </button>
+                                    <input type="hidden" name="action" value="0">
+                                </div>
+                            {% endform %}
+                        {% endif %}
+                        <div class="checkbox">
+                            <input id="chkNewsletterModal" name="show-again" type="checkbox"> {{ settings.vela_newslettermodal_chk }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script type="text/javascript">
+            $(window).load(function() {
+                var dateCookie = new Date();
+                var minutes = {{ settings.vela_newslettermodal_cookie }};
+                var chkShowAgain = $('#chkNewsletterModal');
+                dateCookie.setTime(dateCookie.getTime() + (minutes * 60 * 1000));
+                if ($.cookie('newLetterModal') != 'closed') {
+                    $.fancybox.open({
+                        padding: 0,
+                        beforeLoad: function(){
+                            $('#velaNewsletterModal').removeClass('hidden');
+                        },
+                        href: '#velaNewsletterModal',
+                        helpers:  {
+                            overlay : true
+                        },
+                        afterClose : function(){
+                            $('#velaNewsletterModal').addClass('hidden');
+                            if(chkShowAgain.is(':checked')){
+                                $.cookie('newLetterModal', 'closed', {expires:dateCookie, path:'/'});
+                            }
+                        }
+                    });
+                }
+            });
+        </script>
+    {% endif %}
+{% endif %}

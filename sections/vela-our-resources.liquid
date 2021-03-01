@@ -1,0 +1,138 @@
+{% if section.settings.section_enable %}
+<div class="VelaOurResources{% if section.settings.subfixclass !=blank %} {{section.settings.subfixclass}}{% endif %}" style="background-color: {{section.settings.color_bg }};{% if section.settings.img_bg !=blank %} background-image: url({{ section.settings.img_bg | img_url: "master" }});{% endif %}
+                                     {% if section.settings.margin_block !=blank %}margin:{{section.settings.margin_block}}; {% endif %}
+                                     {% if section.settings.padding_block !=blank %}padding:{{section.settings.padding_block}}; {% endif %}">
+   <div class="container{% if section.settings.full_with %}-full{% endif %}">
+      <div class="container_wrapper">
+         {% if section.settings.title != blank %}
+         <h2 class="velaHomeTitle">{{ section.settings.title }}</h2>
+         {% endif %}
+          <div class="velaContent row">
+             {% for block in section.blocks %}
+              <div class="ourResource {{ block.settings.our_class }} text-center">
+                <div class="wrapper">
+                  {% if block.settings.our_btn_url != blank %}
+                    <a href="{{ block.settings.our_btn_url }}">
+                  {% endif %}
+                  <div class="ourResourceImg">
+                    {% if block.settings.image != blank %}
+                    <img class="img-responsive" alt="{{ block.settings.image.alt | default: shop.name }}" src="{{ block.settings.image | img_url: '350x350' }}" />
+                    {% else %}
+                    <img class="img-responsive" alt="{{ shop.name }}" src="//placehold.it/350x350.png" />
+                    {% endif %}
+                  </div>
+                  {% if block.settings.our_btn_url != blank %}</a>{% endif %}
+                  {% if block.settings.our_title != blank %}
+                    <h2>{{ block.settings.our_title }}</h2>
+                  {% endif %}
+                  {% if block.settings.our_desc != blank %}
+                    <div class="ourResourceDesc">{{ block.settings.our_desc }}</div>
+                 {% endif %}
+                 {% if block.settings.our_btn_url != blank %}
+                    <a class="btn btnVelaTwo" href="{{ block.settings.our_btn_url }}">{{ block.settings.our_btn_text }}</a>
+                 {% endif %}
+                </div>
+              </div>
+            {% endfor %}
+         </div>
+      </div>
+   </div>
+</div>
+{% endif %}
+{% schema %}
+   {
+      "name": "Vela Our Resources",
+      "class": "velaFramework",
+      "settings": [
+		   {
+             "type": "header",
+             "content": "Design Section"
+         },
+		   {
+             "type": "checkbox",
+             "id": "section_enable",
+             "label": "Enabel Section?",
+             "default": true
+         },
+         {
+             "type": "checkbox",
+             "id": "full_with",
+             "label": "Enabel Full Width?"
+         },
+         {
+             "type": "text",
+             "id": "subfixclass",
+             "label": "Add class"
+         },
+         {
+             "type": "image_picker",
+             "id": "img_bg",
+             "label": "background image for block"
+         },
+         {
+             "type": "color",
+             "id": "color_bg",
+             "label": "Background Color",
+             "default": "rgba(0,0,0,0)"
+         },
+		   {
+             "type": "text",
+             "id": "margin_block",
+             "label": "Margin",
+             "placeholder": "0px 0px"
+         },
+		   {
+             "type": "text",
+             "id": "padding_block",
+             "label": "Padding",
+             "placeholder": "0px 0px"
+         }
+      ],
+  		"blocks": [
+  		  {
+         "type": "image",
+         "name": "Our Resource Item",
+         "settings": [
+			   {
+            "type": "text",
+            "id": "our_class",
+            "label": "Class",
+				"default": "col-xs-12 col-sm-3"
+              },
+              {
+                  "type": "image_picker",
+                  "id": "image",
+                  "label": "Icon"
+              },
+              {
+                  "type": "text",
+                  "id": "our_title",
+                  "label": "Title"
+              },
+              {
+                  "type": "textarea",
+                  "id": "our_desc",
+                  "label": "Description"
+              },
+			  {
+                  "type": "url",
+                  "id": "our_btn_url",
+                  "label": "Link"
+              },
+			  {
+                  "type": "text",
+                  "id": "our_btn_text",
+                  "label": "Button text",
+				  "default": "Go to Resource"
+              }
+ 				]
+ 			}
+  		],
+		"presets": [
+         {
+            "name": "Vela Our Service",
+            "category": "4. Vela Image"
+         }
+     ]
+   }
+{% endschema %}

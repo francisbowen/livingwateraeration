@@ -1,0 +1,62 @@
+
+{% if section.settings.section_enable %}
+    {%- assign proCollection = section.settings.collection_handle -%}
+	{%- assign proLimit = section.settings.limit -%}
+
+	<div class="velaProducts">       
+	  {% if section.settings.title != blank %}
+		  <h4 class="titleSidebar">
+		      {{ section.settings.title }}
+		  </h4>
+	  {% endif %}
+	   <div class="velaContent">          
+	      <div class="velaOwlRow  proListStyle ">
+	         <div class="flexRow">
+	            {% for product in collections[proCollection].products limit:proLimit %}
+	               <div class="velaProItem col-xs-12">
+	                  <div class="item">
+	                  	{% include 'product-list-item1' %}
+	                  </div>        
+	               </div>
+	            {% endfor %}
+	         </div>
+	      </div>
+	   </div>
+	</div>
+{% endif %}
+{% schema %}
+{
+    "name": "Sidebar Products List",
+    "class": "velaFramework",
+    "settings":[
+
+        {
+            "type": "header",
+            "content": "General Settings"
+        },
+         {
+             "type": "checkbox",
+             "id": "section_enable",
+             "label": "Enabel Section?",
+             "default": true
+         },
+        {
+            "type": "text",
+            "id": "title",
+            "label": "Title",
+            "placeholder": "Title of section"
+        },
+        {
+            "type": "collection",
+            "id": "collection_handle",
+            "label": "Collection"
+        },
+        {
+            "type": "text",
+            "id": "limit",
+            "label": "Limit",
+            "default": "8"
+        }
+    ]
+}
+{% endschema %}

@@ -1,0 +1,122 @@
+{% if section.settings.sidebar_categories_enable %}
+	{% assign velaCategories = section.settings.sidebar_categories_menu %}
+	<div id="velaCategories" class="velaCategoriesSidebar">
+  		<h3 class="titleSidebar">{{ section.settings.sidebar_categories_title }}</h3>
+         <div class="velaContent">
+            {% if section.settings.category_type == 'menu' %}
+         	   {% if linklists[velaCategories] != empty %}
+                 	{% for linkItem in linklists[velaCategories].links %}
+                 		<div class="itemCategory">
+                           <h5 class="cateTitle">
+                             	{% if linklists[linkItem.handle] != empty %}
+                             		<a class="cateItem hasSubCategory{% if linkItem.active %} active{% endif %} collapsed" data-toggle="collapse" href="#subCategory{{ forloop.index }}" >{{ linkItem.title }}</a>
+                             	{% else %}
+                             		<a class="cateItem {% if linkItem.active %}active{% endif %}" href="{{ linkItem.url }}">{{ linkItem.title }}</a>
+                               {% endif %}
+                           </h5>
+                         	{% if linklists[linkItem.handle] != empty %}
+                               <div id="subCategory{{ forloop.index }}" class="collapse">
+                                   <div class="panel-body">
+                                     	<ul class="listSidebar list-unstyled">
+                                     		{% for linkChildItem in linklists[linkItem.handle].links %}
+                                         		<li><a href="{{ linkChildItem.url }}" title="{{ linkChildItem.title }}">{{ linkChildItem.title }}</a></li>
+                                     		{% endfor %}
+                                       </ul>
+                                   </div>
+                               </div>
+                         	{% endif %}
+                   	</div>
+                   {% endfor %}
+         	   {% endif %}
+            {% else %}
+               {% for block in section.blocks %}
+                  {% if block.settings.category_title != blank %}
+                     {% assign cattitle = block.settings.category_title %}
+                  {% else %}
+                     {% assign cattitle = collections[block.settings.collection_handle].title %}
+                  {% endif %}
+                  {% if block.settings.category_url != blank %}
+                     {% assign caturl = block.settings.category_url  %}
+                  {% else %}
+                     {% assign caturl = collections[block.settings.collection_handle].url %}
+                  {% endif %}
+                  <div class="itemCategory">
+                     <h5 class="cateTitle">
+                        <a href="{{ caturl }}" title="{{ cattitle }}"> {{ cattitle }} <span class="product_count">{% if collections[block.settings.collection_handle].products_count != blank  %}{{ collections[block.settings.collection_handle].products_count }}{% else %}0{% endif %}</span></a>
+                     </h5>
+                  </div>
+               {% endfor %}
+            {% endif %}
+         </div>
+	</div>
+{% endif %}
+
+{% schema %}
+   {
+      "name": "Sidebar Categories",
+      "settings": [
+         {
+            "type": "header",
+            "content": "Sidebar Categories"
+         },
+         {
+            "type": "checkbox",
+             "id": "sidebar_categories_enable",
+             "label": "Enable Sidebar Categories?"
+         },
+         {
+            "type": "radio",
+            "id": "category_type",
+            "label": "Display Categories Type?",
+            "options": [
+               {
+                  "value": "menu",
+                  "label": "Show from Menu"
+               },
+               {
+                  "value": "category",
+                  "label": "Show from Category Item"
+               }
+            ],
+            "default": "menu"
+         },
+         {
+             "type": "text",
+             "id": "sidebar_categories_title",
+             "placeholder": "Title for Block",
+             "label": "Block Title"
+         },
+         {
+             "type": "link_list",
+             "id": "sidebar_categories_menu",
+             "label": "Menu",
+             "info": "Choose menu for block. Add new menu: Admin->Navigation->Menu"
+         }
+     ],
+      "blocks": [
+         {
+            "type": "item",
+            "name": "Category Item",
+            "settings": [
+               {
+                  "type": "text",
+                  "id": "category_title",
+                  "label": "Category Title"
+               },
+               {
+                  "type": "collection",
+                  "id": "collection_handle",
+                  "label": "Collection"
+               },
+               {
+                  "type": "text",
+                  "id": "category_url",
+                  "label": "Custom link"
+               }
+
+
+            ]
+         }
+      ]
+   }
+{% endschema %}

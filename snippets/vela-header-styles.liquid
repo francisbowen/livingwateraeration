@@ -1,0 +1,48 @@
+{%- if request.host contains 'myshopify.com' -%}
+   {%- assign is_admin_interface = true -%}
+{%- else -%}
+   {%- assign is_admin_interface = false -%}
+{%- endif -%}
+
+{%- if template.name == 'cart' -%}
+   {%- assign is_admin_interface = true -%}
+{%- endif -%}
+
+
+{% if settings.vela_fontfamily_style == 'google_fonts' %}
+	<link href="https://fonts.googleapis.com/css?family={{ settings.vela_fontfamily }}:100,300,400,500,700" rel="stylesheet" type="text/css">
+ {%  else %}
+     <link href="https://fonts.googleapis.com/css?family=Raleway:100,300,400,500,600,700,800,900" rel="stylesheet"> 
+ {% endif %}
+ {% if settings.vela_fontfamily_secondary_style == 'google_fonts' %}
+     <link href="https://fonts.googleapis.com/css?family={{ settings.vela_fontfamily_secondary }}:100,300,400,500,700" rel="stylesheet" type="text/css">
+ {%  else %}
+     <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" rel="stylesheet"> 
+ {% endif %}
+ {% if settings.vela_fontfamily_tertiary_style == 'google_fonts' %}
+     <link href="https://fonts.googleapis.com/css?family={{ settings.vela_fontfamily_tertiary }}:100,300,400,500,700" rel="stylesheet" type="text/css">
+   {% else %}
+   	<link href="https://fonts.googleapis.com/css?family=Oswald:400,700" rel="stylesheet"> 
+ {% endif %}
+ <link href="https://fonts.googleapis.com/css?family=Oswald:400,700" rel="stylesheet">
+
+
+  {% if settings.is-speed_optimized == false or is_admin_interface %}
+    <link href="vela-fonts.css" type="text/css">
+  {% else %}
+    <style>
+      {% include 'vela-fonts.css' %}
+    </style>
+  {% endif %}
+
+  {{ 'vela-site.scss.css' | asset_url | stylesheet_tag }}
+
+  {% if settings.is-speed_optimized == false or is_admin_interface %}
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.css" type="text/css">
+  {% else %}
+    <style>
+      {% include 'slick.css' %}
+    </style>
+  {% endif %}
+
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick-theme.min.css" type="text/css">

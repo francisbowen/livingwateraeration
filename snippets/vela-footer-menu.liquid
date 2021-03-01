@@ -1,0 +1,14 @@
+<div class="velaFooter">
+	{% if menuTitle != blank %}
+	<h3 class="velaFooterTitle">{{ menuTitle }}</h3>
+	{% endif %}
+	<div class="velaContent">
+		<ul class="velaFooterLinks {% if block.settings.layout =='list' %}list-inline {% endif %}list-unstyled">
+			{% for velaLink in linklists[menuHandle].links %}
+				<li class="{% if velaLink.active %}active{% endif %}">
+					<a href="{{ velaLink.url }}" title="">{{ velaLink.title }}</a>
+				</li>
+			{% endfor %}
+		</ul>
+	</div>
+</div>

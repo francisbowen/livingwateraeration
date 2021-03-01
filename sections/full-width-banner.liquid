@@ -1,0 +1,172 @@
+<style>
+  .fullBanner{
+    position:relative;
+    color:{{section.settings.textColor}};
+    max-width: 2000px;
+    margin: auto;
+/*     background: #000000; */
+    overflow:hidden;
+    max-height:850px;
+  }
+  .fullBanner img{
+  	width:110%;
+    max-height: 850px;
+    opacity: 0.9;
+    max-width:none;
+  }
+  
+  
+  .fullBanner .left {
+    width: 52%;
+    height: auto;
+    position: absolute;
+    top: 17%;
+    left: 6%;
+}
+  
+  .fullBanner .rigth {
+    position: absolute;
+    top: 40%;
+    width: 90%;
+    left: 6%;
+}
+  
+.fullBanner h1{
+  	font-size: 70px;
+  	margin-bottom: 27px;
+  	font-weight: 700;
+  }
+  
+ .fullBanner div p{
+   font-size: 1.7vw;
+   line-height: initial;
+   margin-bottom:8%;
+  }
+  
+.fullBanner a{
+  	font-size: 1.6vw;
+    padding: 10px 17px;
+    color: white;
+    border-radius: 0.3rem;
+    font-weight: 500;
+  	background:{{section.settings.buttonColor}};
+}
+  .fullBanner a:hover{
+    color:{{section.settings.buttonColor}};
+    background-color:white;
+    border:2px solid {{section.settings.buttonColor}};
+    font-weight: 700;
+  }
+  .velaHeaderMain{
+  	margin-bottom:0px;
+  }
+@media only screen and (max-width:1024px){
+  .fullBanner h1 {
+    font-size: 5vw;
+  }
+  
+  }
+@media only screen and (max-width:768px){
+  .fullBanner{
+  margin-top:-2px;
+  }
+  .fullBanner .left{width:90%;}
+  	.fullBanner div {
+        top: 34%;
+    }
+
+  .fullBanner div p {
+      font-size: 3.3vw;
+      line-height: 1.5;
+   	  font-weight: 600;
+  }
+   .fullBanner h1 {
+    	font-size: 6.5vw;
+     	margin-top: 0px;
+    }
+  .fullBanner .rigth{padding:30px;}
+  .fullBanner .left{top:50%;padding:30px;transform: translateY(-50%);}
+    .fullBanner a{
+    	font-size: 4vw;
+    	padding: 1vw 2.7vw; 
+    }
+
+}
+</style>
+
+
+<!-- Caleb added these comments to get rid of the main banner. Delete comments to add banner back (Except for ones with * by them)
+<div class="fullBanner"> -->
+<!--*   <img src="{{section.settings.imageBanner | img_url: 'master'}}" alt="{{section.settings.title}}"> *-->
+  
+  <!--	<video autoplay loop muted playsinline width="100%" class="video-background">
+  		<source src="https://cdn.shopify.com/s/files/1/0080/8861/7040/files/pond-banner.mp4?v=1590998414" type="video/mp4">
+	</video>
+  
+  <div class="left"><div><h1>{{section.settings.title}}</h1>
+    <div><p>{{section.settings.bigText}}</p></div><a href="{{section.settings.link}}" target="_blank">{{section.settings.linktext}}</a></div>
+  </div>
+  </div>
+-->
+
+{% schema %}
+  {
+    "name": "Full Banner",
+    "settings": [
+		{
+			"id": "imageBanner",
+			"type": "image_picker",
+			"label": "Image"
+		},
+		{
+          "id": "title",
+          "type": "text",
+          "label": "Title",
+          "placeholder": "The title"
+        },
+		{
+          "id": "bigText",
+          "type": "textarea",
+          "label": "Text",
+          "placeholder": "The big text go to be here"
+        },
+
+		{
+			"id":"textColor",
+			"type":"color",
+			"label": "Text Color",
+			"default": "#FFFFFF"
+		},
+		{
+          "id": "linktext",
+          "type": "text",
+          "label": "Button text",
+          "default": "Click here"
+        },
+		{
+          "id": "link",
+          "type": "url",
+          "label": "Button link"
+        },
+		{
+			"id":"buttonColor",
+			"type":"color",
+			"label": "Button Color",
+			"default": "#0574a9"
+		}
+	],
+    "presets": [
+        {
+          "name": "Full Banner",
+          "category": "Banner"
+        }
+      ]
+  }
+{% endschema %}
+
+{% stylesheet %}
+
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

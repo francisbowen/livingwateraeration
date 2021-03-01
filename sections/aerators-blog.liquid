@@ -1,0 +1,104 @@
+{% if section.settings.section_enable %}
+<div class="VelaOurResources{% if section.settings.subfixclass !=blank %} {{section.settings.subfixclass}}{% endif %}" style="background-color: {{section.settings.color_bg }};{% if section.settings.img_bg !=blank %} background-image: url({{ section.settings.img_bg | img_url: "master" }});{% endif %}
+                                     {% if section.settings.margin_block !=blank %}margin:{{section.settings.margin_block}}; {% endif %}
+                                     {% if section.settings.padding_block !=blank %}padding:{{section.settings.padding_block}}; {% endif %}">
+   <div class="container{% if section.settings.full_with %}-full{% endif %}">
+      <div class="container_wrapper">
+         {% if section.settings.section_title != blank %}
+         <h2 class="ResourceTitle">{{ section.settings.section_title }}</h2>
+         {% endif %}
+          <div class="velaContent row">
+             {% for block in section.blocks %}
+              <div class="ourResource {{ block.settings.our_class }} text-center">
+                <div class="wrapper">
+                  {% assign article = articles[block.settings.featured_article] %}
+                  {% if article %}
+                  	<a href="{{ article.url }}">
+                      <div class="ourResourceImg">
+                        <img class="img-responsive" alt="{{ article.image.alt }}" src="{{ article.image.src | img_url: '350x350', crop: 'center' }}" />
+                      </div>
+                    </a>
+                    <h3>{{ article.title }}</h3>
+                    <p class="ourResourceDesc">{{article.excerpt}}</p>
+                    <a class="btn btnVelaTwo" href="{{ article.url }}">Read more</a>
+                  {% endif %}
+                </div>
+              </div>
+            {% endfor %}
+         </div>
+      </div>
+   </div>
+</div>
+<hr style="
+      width: 50%;
+      border: 0 none;
+      border-bottom-width: 1px;
+      border-bottom-style: solid;
+      border-bottom-color: rgba(0, 0, 0, 1.0);
+      margin-left: auto;
+      margin-right: auto;
+      margin-top: 0;
+      margin-bottom: 0;
+    ">
+{% endif %}
+{% schema %}
+   {
+      "name": "Aerators Blog",
+      "class": "velaFramework",
+      "settings": [
+		   {
+             "type": "header",
+             "content": "Design Section"
+         },
+		   {
+             "type": "checkbox",
+             "id": "section_enable",
+             "label": "Enabel Section?",
+             "default": true
+         },
+         {
+             "type": "text",
+             "id": "subfixclass",
+             "label": "Add class"
+         },
+		   {
+             "type": "text",
+             "id": "margin_block",
+             "label": "Margin",
+             "placeholder": "0px 0px"
+         },
+		   {
+             "type": "text",
+             "id": "padding_block",
+             "label": "Padding",
+             "placeholder": "0px 0px"
+         },
+		   {
+             "type": "text",
+             "id": "section_title",
+             "label": "Title",
+			"default": "BLOG POSTS"
+         }
+      ],
+  		"blocks": [
+  		  {
+         "type": "image",
+         "name": "Our Resource Item",
+         "settings": [
+			   {
+                "type": "text",
+                "id": "our_class",
+                "label": "Class",
+                    "default": "col-xs-12 col-sm-6 col-md-3"
+                  },
+                  {
+                     "type": "article",
+                     "id": "featured_article",
+                     "label": "Article"
+                  }
+ 				]
+ 			}
+  		]
+     
+   }
+{% endschema %}

@@ -1,0 +1,109 @@
+{% if section.settings.section_enable %}
+<div class="velaAccordion ResourceFAQ{% if section.settings.subfixclass !=blank %} {{section.settings.subfixclass}}{% endif %}" 
+     style="{% if section.settings.margin_block !=blank %}margin:{{section.settings.margin_block}}; {% endif %}
+            {% if section.settings.padding_block !=blank %}padding:{{section.settings.padding_block}}; {% endif %}">
+  <div class="container{% if section.settings.full_with %}-full{% endif %}">
+    <h2 class="ResourceTitle">
+      {% if section.settings.title != blank  %}
+      <span class="title">
+        {{ section.settings.title }}
+      </span>
+      {% endif %}
+    </h2>
+    <div class="velaContent">
+      <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+        {% for block in section.blocks %}
+        <div class="panel panel-default">
+          {% if block.settings.question != blank %}
+          <div class="panel-heading" role="tab">
+            <h4 class="panel-title">
+              <a {% if forloop.index != 1 %}class="collapsed"{% endif %} role="button" data-toggle="collapse" data-parent="#accordion" href="#velaFaq{{ forloop.index }}" aria-expanded="true" aria-controls="velaFaq{{ forloop.index }}">
+                {{ forloop.index }}. {{ block.settings.question }}
+              </a>
+            </h4>
+          </div>
+          {% endif %}
+          {% if block.settings.answer !=blank %}
+          <div id="velaFaq{{ forloop.index }}" class="panel-collapse collapse{% if forloop.index == 1 %} in{% endif %}" role="tabpanel">
+            <div class="panel-body">
+              {{ block.settings.answer }}
+            </div>
+          </div>
+          {% endif %}
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</div>
+{% endif %}
+   {% schema %}
+   {
+     	"name": "Pound Dye FAQ",
+     	"class": "velaFramework",
+	 	"max_blocks": 18,
+     	"settings":[
+		   {
+            "type": "header",
+            "content": "Design Section"
+         },
+		   {
+            "type": "checkbox",
+            "id": "section_enable",
+            "label": "Enabel Section?",
+            "default": true
+         },
+         {
+            "type": "checkbox",
+            "id": "full_with",
+            "label": "Enabel Full Width?"
+         },
+         {
+            "type": "text",
+            "id": "subfixclass",
+            "label": "Add class"
+         },
+		 {
+            "type": "text",
+            "id": "margin_block",
+            "label": "Margin",
+            "placeholder": "0px 0px"
+         },
+		   {
+            "type": "text",
+            "id": "padding_block",
+            "label": "Padding",
+            "placeholder": "0px 0px"
+         },
+         {
+            "type": "header",
+            "content": "General Settings"
+         },
+         {
+	        	"type": "text",
+	        	"id": "title",
+	        	"default": "FAQ",
+	        	"label": "Title"
+	      }
+     ],
+		
+		"blocks": [
+			{
+            "type": "item",
+            "name": "Item",
+            "settings": [
+               {
+                  "type": "text",
+                  "id": "question",
+                  "label": "Question"
+               },
+               {
+                  "type": "textarea",
+                  "id": "answer",
+                  "label": "Answer"
+               }
+            ]
+         }
+		]
+	}
+	{% endschema %}

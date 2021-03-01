@@ -1,0 +1,96 @@
+<div class="carousel-collection">
+<!--    collection.metafields["custom-carousel.caro"]["list"]  -->
+  <ul>
+  	{% for link in linklists.collection-carousel.links %}
+      {% if link.title == collection.title %}
+        {% for sub_link in link.links %}
+          <li>
+            <a href="{{ sub_link.url }}">
+              <div class="image">
+                  <img src="{{ collections[sub_link.handle].image | img_url: 'medium' }}" alt="{{ sub_link.title }}" />
+              </div>
+              <p>
+                {{ sub_link.title }}
+              </p>
+            </a>
+          </li>
+
+        {% endfor %}
+    {% endif %}
+    {% endfor %}
+  </ul>
+</div>
+
+
+<link  href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick-theme.min.css">
+<link  href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.css">
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.js"></script>
+
+
+
+<script>
+  $(document).ready(function(){
+    
+    $('.carousel-collection ul').slick({
+      infinite: true,
+      slidesToShow: 4,
+      slidesToScroll: 1,
+//       centerMode: true,
+      adaptiveHeight: true,
+//       variableWidth: true,
+      responsive: [
+    {
+      breakpoint: 991,
+      settings: {
+        arrows: true,
+        centerMode: true,
+        centerPadding: '40px',
+        slidesToShow: 2
+      }
+    },
+    {
+      breakpoint: 480,
+      settings: {
+        arrows: true,
+        centerMode: true,
+        centerPadding: '40px',
+        slidesToShow: 1
+      }
+    }
+  ]
+    });
+  });
+</script>
+<style>
+	.carousel-collection ul{
+      padding-left:0px;
+
+    }
+  button.slick-prev{
+  	left:0px;
+  }
+  button.slick-next{
+  	right:0px;
+  }
+  .slick-prev,.slick-next{
+  	color:#959595;
+    border:0;
+    background:none;
+  }
+  .slick-prev:hover,.slick-next:hover{
+    	color:#0574a9;
+      	background:none;
+    }
+  button.slick-next{top: 33%;}
+   button.slick-prev{top: 33%;}
+@media(min-width:991px){
+  button.slick-next{
+    right: -20px;
+  }
+  button.slick-prev{
+    left: -20px;	
+  }
+}
+  .slick-prev:before, .slick-next:before{font-size:60px;}
+  
+</style>

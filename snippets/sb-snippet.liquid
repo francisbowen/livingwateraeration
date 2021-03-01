@@ -1,0 +1,6 @@
+
+{% capture sb %}{% include "Secomapp-Description" %}{% endcapture %}{% unless sb contains "Liquid error" %}{% include "Secomapp-Description" %}{% endunless %}
+
+{% capture sb %}{% include "Secomapp-Title" %}{% endcapture %}{% unless sb contains "Liquid error" %}{% include "Secomapp-Title" %}{% endunless %}
+
+{% capture sb_json %}{% include 'SEO-with-JSON-LD-Article-Collection' %}{% endcapture %}{% unless sb_json contains 'Liquid error' %}{% include 'SEO-with-JSON-LD-Article-Collection' %}{% endunless %}

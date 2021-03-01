@@ -1,0 +1,53 @@
+
+{% if section.settings.sidebar_filtertype_enable %}
+    <div class="velaFilter">
+        <h3 class="titleSidebar">{{ section.settings.sidebar_filtertype_title }}</h3>
+        <div class="velaContent">
+            <ul class="listSidebar list-unstyled">
+                {% assign itemArray = section.settings.sidebar_filtertype_list | split:"," %}
+                {% for itemType in itemArray %}
+                    {% if shop.types contains itemType %}
+                        {% if collection.current_vendor == itemType %}
+                            <li class="active">
+                                {{ itemType | link_to_vendor }}
+                            </li>
+                        {% else %}
+                            <li>
+                                {{ itemType | link_to_vendor }}
+                            </li>
+                        {% endif %}
+                    {% endif %}
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+{% endif %}
+{% schema %}
+    {
+        "name": "Sidebar Filter By Type",
+        "settings": [
+            {
+                "type": "header",
+                "content": "Sidebar Filter By Type"
+            },
+            {
+                "type": "checkbox",
+                "id": "sidebar_filtertype_enable",
+                "label": "Enable Filter By Type?"
+            },
+            {
+                "type": "text",
+                "id": "sidebar_filtertype_title",
+                "placeholder": "Title for Block",
+                "label": "Block Title"
+            },
+            {
+                "type": "textarea",
+                "id": "sidebar_filtertype_list",
+                "placeholder": "Product Type,Product Vendor2",
+                "label": "Product Types List",
+                "info": "Separate by a comma \",\""
+            }
+        ]
+    }
+{% endschema %}

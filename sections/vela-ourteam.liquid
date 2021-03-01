@@ -1,0 +1,341 @@
+{% if section.settings.section_enable %}
+	{%- assign owlColumn1 = section.settings.column1 | plus:0 -%}
+	{%- assign owlColumn2 = section.settings.column2 | plus:0 -%}
+	{%- assign owlColumn3 = section.settings.column3 | plus:0 -%}
+	{%- assign owlColumn4 = section.settings.column4 | plus:0 -%}
+   <div class="velaOurTeam{% if section.settings.subfixclass !=blank %} {{section.settings.subfixclass}}{% endif %}" style="background-color: {{section.settings.color_bg }};{% if section.settings.img_bg !=blank %} background-image: url({{ section.settings.img_bg | img_url: "master" }});{% endif %}
+                                     {% if section.settings.margin_block !=blank %}margin:{{section.settings.margin_block}}; {% endif %}
+                                     {% if section.settings.padding_block !=blank %}padding:{{section.settings.padding_block}}; {% endif %}">
+      <div class="container{% if section.settings.full_with %}-full{% endif %}">
+         <h3 class="velaTitle velaHomeTitle">
+            {% if section.settings.title != blank  %}
+                <span class="title">
+               {{ section.settings.title }}
+            </span>
+            {% endif %}
+            {% if section.settings.subtitle != blank %}
+            <span class="subtitle">{{ section.settings.subtitle }}</span>
+            {% endif %}
+         </h3>
+         <div class="velaContent">
+            <div class="velaOwlRow owlCarouselPlay">
+                <div class="owl-carousel" 	data-nav="{{ section.settings.navigation }}" 
+                                            data-autoplay="{{ section.settings.autoplay }}" 
+                                            data-autospeed="{{ section.settings.autoplay_speed }}" 
+                                            data-speed="{{ section.settings.speed }}" 
+                                            data-columnone="{{ owlColumn1 }}" 
+                                            data-columntwo="{{ owlColumn2 }}" 
+                                            data-columnthree="{{ owlColumn3 }}"
+                                            data-columnfour="{{ owlColumn4 }}">
+                    {% for block in section.blocks %}
+                        <div class="item">
+                           <div class="wrapper">
+                            	<div class="our_image">
+                                 {% if block.settings.our_image != blank %}
+                                     <img class="img-responsive" alt="" src="{{ block.settings.our_image | img_url: "master" }}" />
+                                 {% else %}
+                                     <img class="img-responsive" alt="{{ shop.name }}" src="//placehold.it/96x96.jpg" />
+                                 {% endif %}
+                                 <div class="our_social">
+                                 	{% if block.settings.our_fb_link != blank %}
+                                 		<a href="{{ block.settings.our_fb_link }}" title=""><i class="fa fa-facebook"></i></a>
+                                 	{% endif %}
+                                 	{% if block.settings.our_tw_link != blank %}
+                                 		<a href="{{ block.settings.our_tw_link }}" title=""><i class="fa fa-twitter"></i></a>
+                                 	{% endif %}
+                                 	{% if block.settings.our_gg_link != blank %}
+                                 		<a href="{{ block.settings.our_gg_link }}" title=""><i class="fa fa fa-google-plus"></i></a>
+                                 	{% endif %}                                 	
+                                 	{% if block.settings.our_yt_link != blank %}
+                                 		<a href="{{ block.settings.our_yt_link }}" title=""><i class="fa fa-youtube"></i></a>
+                                 	{% endif %}
+                                 </div>
+										</div>
+										<div class="our_content">
+											{% if block.settings.our_name != blank %}
+												<h4 class="name">
+													{{ block.settings.our_name }}
+												</h4>
+											{% endif %}
+											{% if block.settings.our_job != blank %}
+												<p class="job">
+													{{ block.settings.our_job }}
+												</p>
+											{% endif %}
+										</div>
+                           </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+         </div>
+      </div>
+   </div>
+{% endif %}
+   {% schema %}
+   {
+     	"name": "Vela Our Team",
+     	"class": "velaFramework",
+	 	"max_blocks": 18,
+     	"settings":[
+		   {
+            "type": "header",
+            "content": "Design Section"
+         },
+		   {
+            "type": "checkbox",
+            "id": "section_enable",
+            "label": "Enabel Section?",
+            "default": true
+         },
+         {
+            "type": "checkbox",
+            "id": "full_with",
+            "label": "Enabel Full Width?"
+         },
+         {
+            "type": "text",
+            "id": "subfixclass",
+            "label": "Add class"
+         },
+         {
+            "type": "image_picker",
+            "id": "img_bg",
+            "label": "background image for block"
+         },
+         {
+            "type": "color",
+            "id": "color_bg",
+            "label": "Background Color",
+            "default": "rgba(0,0,0,0)"
+         },
+		   {
+            "type": "text",
+            "id": "margin_block",
+            "label": "Margin",
+            "placeholder": "0px 0px"
+         },
+		   {
+            "type": "text",
+            "id": "padding_block",
+            "label": "Padding",
+            "placeholder": "0px 0px"
+         },
+         {
+            "type": "header",
+            "content": "General Settings"
+         },
+         {
+	        	"type": "text",
+	        	"id": "title",
+	        	"placeholder": "Title",
+	        	"label": "Title"
+	      },
+	      {
+	        	"type": "text",
+	        	"id": "subtitle",
+	        	"placeholder": "subTitle",
+	        	"label": "Sub Title"
+	      },
+         {
+            "type": "header",
+            "content": "Carousel Settings"
+         },
+         {
+          	"type": "select",
+          	"id": "column1",
+          	"label": "#Column 1",
+          	"default": "4",
+          	"info": "Large desktops",
+          	"options":[
+              	{
+                  "value": "1",
+                  "label": "1"
+              	},
+              	{
+                  "value": "2",
+                  "label": "2"
+              	},
+              	{
+                  "value": "3",
+                  "label": "3"
+              	},
+              	{
+                  "value": "4",
+                  "label": "4"
+              	},
+              	{
+                  "value": "5",
+                  "label": "5"
+              	},                    
+              	{
+                  "value": "6",
+                  "label": "6"
+              	}
+          	]
+         },
+         {
+             "type": "select",
+             "id": "column2",
+             "label": "#Column 2",
+             "default": "3",
+             "info": "Desktops & Tablets landscape",
+             "options":[
+                 {
+                     "value": "1",
+                     "label": "1"
+                 },
+                 {
+                     "value": "2",
+                     "label": "2"
+                 },
+                 {
+                     "value": "3",
+                     "label": "3"
+                 },
+                 {
+                     "value": "4",
+                     "label": "4"
+                 },
+                 {
+                     "value": "5",
+                     "label": "5"
+                 },                    
+                 {
+                     "value": "6",
+                     "label": "6"
+                 }
+             ]
+         },
+         {
+             "type": "select",
+             "id": "column3",
+             "label": "#Column 3",
+             "info": "Tablets & Phones landscape",
+             "default": "2",
+             "options":[
+                 {
+                     "value": "1",
+                     "label": "1"
+                 },
+                 {
+                     "value": "2",
+                     "label": "2"
+                 },
+                 {
+                     "value": "3",
+                     "label": "3"
+                 },
+                 {
+                     "value": "4",
+                     "label": "4"
+                 },
+                 {
+                     "value": "5",
+                     "label": "5"
+                 }
+             ]
+         },
+         {
+             "type": "select",
+             "id": "column4",
+             "label": "#Column 4",
+             "default": "2",
+             "info": "Smartphones",
+             "options":[
+                 {
+                     "value": "1",
+                     "label": "1"
+                 },
+                 {
+                     "value": "2",
+                     "label": "2"
+                 },
+                 {
+                     "value": "3",
+                     "label": "3"
+                 },
+                 {
+                     "value": "4",
+                     "label": "4"
+                 },
+                 {
+                     "value": "5",
+                     "label": "5"
+                 }
+             ]
+         },
+         {
+             "type": "checkbox",
+             "id": "navigation",
+             "label": "Show Navigation",
+             "default": true
+         },
+         {
+             "type": "checkbox",
+             "id": "autoplay",
+             "label": "Auto Play",
+             "default": false
+         },
+         {
+             "type": "text",
+             "id": "autoplay_speed",
+             "label": "Auto Play Speed",
+             "info": "Default: 10000(ms)",
+             "default": "10000"
+         },
+         {
+             "type": "text",
+             "id": "speed",
+             "label": "Speed",
+             "info": "Slide/Fade animation speed",
+             "default": "300"
+         }
+     ],
+		
+		"blocks": [
+			{
+            "type": "image",
+            "name": "Our Team Item",
+            "settings": [
+               {
+                  "type": "image_picker",
+                  "id": "our_image",
+                  "label": "ourteam Image",
+                  "info": "Default size:96x96 pixels"
+               },
+               {
+                  "type": "text",
+                  "id": "our_name",
+                  "label": "Name"
+               },
+               {
+                  "type": "text",
+                  "id": "our_job",
+                  "label": "Job"
+               },
+               {
+                  "type": "text",
+                  "id": "our_fb_link",
+                  "label": "Facebook Link"
+               },
+             	{
+                  "type": "text",
+                  "id": "our_tw_link",
+                  "label": "Twitter Link"
+               },            	
+               {
+                  "type": "text",
+                  "id": "our_gg_link",
+                  "label": "Goolge+ Link"
+               },              
+               {
+                  "type": "text",
+                  "id": "our_yt_link",
+                  "label": "Youtube Link"
+               }
+            ]
+         }
+		]
+	}
+	{% endschema %}

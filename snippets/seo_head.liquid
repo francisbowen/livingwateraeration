@@ -1,0 +1,9 @@
+{% if paginate.pages > 1 %}
+  	{% assign current_url = collection.handle %} 
+
+	{% if paginate.current_page > 1 %}
+	<meta name="robots" content="noindex, follow" />
+	{% endif %}
+
+
+{% endif %}

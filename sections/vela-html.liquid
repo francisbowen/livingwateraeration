@@ -1,0 +1,94 @@
+{% if section.settings.section_enable %}
+<div class="velaHtml{% if section.settings.subfixclass !=blank %} {{section.settings.subfixclass}}{% endif %}" style="background-color: {{section.settings.color_bg }}; {% if section.settings.img_bg !=blank %}background-image: url({{ section.settings.img_bg | img_url: "master" }});{% endif %}
+                                     {% if section.settings.margin_block !=blank %}margin:{{section.settings.margin_block}}; {% endif %}
+                                     {% if section.settings.padding_block !=blank %}padding:{{section.settings.padding_block}}; {% endif %}">
+   <div class="container{% if section.settings.full_with %}-full{% endif %}">
+	    <h3 class="velaTitle velaHomeTitle">
+            {% if section.settings.title != blank  %}
+                <span class="title">
+                {{ section.settings.title }}
+            </span>
+            {% endif %}
+            {% if section.settings.subtitle != blank %}
+            <span class="subtitle">{{ section.settings.subtitle }}</span>
+            {% endif %}
+        </h3>
+	   <div class="velaContent">
+	      <div class="htmldesc">{{ section.settings.desc }}</div>
+	   </div>
+	</div>
+</div>
+{% endif %}
+{% schema %}
+    {
+        "name": "Vela Html",
+        "class": "velaFramework",
+        "settings":[      
+         {
+            "type": "header",
+            "content": "Design Section"
+         },
+         {
+            "type": "checkbox",
+            "id": "section_enable",
+            "label": "Enabel Section?",
+            "default": true
+         },
+         {
+            "type": "checkbox",
+            "id": "full_with",
+            "label": "Enabel Full Width?"
+         },
+         {
+         	"type": "text",
+         	"id": "subfixclass",
+         	"label": "Add class"
+         },
+         {
+            "type": "image_picker",
+            "id": "img_bg",
+            "label": "background image for block"
+         },
+         {
+	        "type": "color",
+	        "id": "color_bg",
+	        "label": "Background Color",
+	        "default": "#fff"
+	      },
+         {
+            "type": "text",
+            "id": "margin_block",
+            "label": "Margin",
+            "placeholder": "0px 0px"
+         },
+         {
+            "type": "text",
+            "id": "padding_block",
+            "label": "Padding",
+            "placeholder": "0px 0px"
+         },
+         {
+            "type": "header",
+            "content": "General Settings"
+         },
+         {
+	        	"type": "text",
+	        	"id": "title",
+	        	"placeholder": "Title for Video",
+	        	"label": "Video Title"
+	      },
+         {
+            "type": "text",
+            "id": "subtitle",
+            "placeholder": "Sub Title",
+            "label": "Sub Title"
+         },
+	      {
+	        	"type": "textarea",
+	        	"id": "desc",
+	        	"placeholder": "Description",
+	        	"label": "Description"
+	      }
+      ]
+    }
+{% endschema %}

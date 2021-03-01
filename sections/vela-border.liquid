@@ -1,0 +1,108 @@
+
+<div class="velaBorder" style="{% if section.settings.margin_block !=blank %}margin:{{section.settings.margin_block}}; {% endif %}
+                                     {% if section.settings.padding_block !=blank %}padding:{{section.settings.padding_block}}; {% endif %}">
+   <div class="container{% if section.settings.full_with %}-full{% endif %}">
+   	<div class="borderStyle" style="border-top: {{ section.settings.border_style }} {{ section.settings.border_width }}px {{section.settings.border_color}}">&nbsp;</div>
+   </div>
+</div>
+{% schema %}
+{
+	"name": "Vela Border",
+	"class": "velaFramework",
+	"settings": [
+	   {
+	     "type": "header",
+	     "content": "Design Block"
+	   },
+	   {
+	     "type": "checkbox",
+	     "id": "full_with",
+	     "label": "Enabel Full Width?"
+	   },
+	   {
+	     "type": "text",
+	     "id": "margin_block",
+	     "label": "Margin",
+	     "placeholder": "0px 0px"
+	   },
+	   {
+	     "type": "text",
+	     "id": "padding_block",
+	     "label": "Padding",
+	     "placeholder": "0px 0px"
+	   },
+	   {
+         "type": "header",
+         "content": "General Settings"
+      },
+      {
+			"type": "select",
+			"id": "border_style",
+			"label": "Border Style",
+			"default": "solid",
+			"options": [
+			  	{
+			      "value": "solid",
+			      "label": "Solid"
+			  	},
+			  	{
+			      "value": "dotted",
+			      "label": "Dotted"
+			  	},			  	
+			  	{
+			      "value": "double",
+			      "label": "Double"
+			  	},			  	
+			  	{
+			      "value": "groove",
+			      "label": "Groove"
+			  	},			  	
+			  	{
+			      "value": "ridge",
+			      "label": "Ridge"
+			  	}
+			]
+      },
+      {
+			"type": "select",
+			"id": "border_width",
+			"label": "Border Width",
+			"default": "1",
+			"options": [
+			  	{
+			      "value": "1",
+			      "label": "1px"
+			  	},
+			  	{
+			      "value": "2",
+			      "label": "2px"
+			  	},			  	
+			  	{
+			      "value": "3",
+			      "label": "3px"
+			  	},			  	
+			  	{
+			      "value": "4",
+			      "label": "4px"
+			  	},			  	
+			  	{
+			      "value": "5",
+			      "label": "5px"
+			  	}
+			]
+      },
+      {
+         "type": "color",
+         "id": "border_color",
+         "label": "Border Color",
+         "default": "#ccc"
+      }
+	],
+	"presets": [
+	   {
+	       "name": "Vela Border",
+	       "category": "7. Vela Border"
+	   }
+	]
+}
+{% endschema %}

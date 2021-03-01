@@ -1,0 +1,45 @@
+{%- if request.host contains 'myshopify.com' -%}
+   {%- assign is_admin_interface = true -%}
+{%- else -%}
+   {%- assign is_admin_interface = false -%}
+{%- endif -%}
+
+{%- if template.name == 'cart' -%}
+   {%- assign is_admin_interface = true -%}
+{%- endif -%}
+
+<div class="ourServiceImg">
+  <a href="https://www.bbb.org/us/la/lafayette/profile/pond-supplies/living-water-aeration-1045-90006023" target="_blank">
+    <img 
+         {% if settings.is-speed_optimized and is_admin_interface == false %}
+           class="img-responsive lazyloadagc"
+           src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
+           data-src="https://cdn.shopify.com/s/files/1/0080/8861/7040/files/BB.png?v=1554827758"
+         {% else %}
+           class="img-responsive" 
+           src="https://cdn.shopify.com/s/files/1/0080/8861/7040/files/BB.png?v=1554827758"
+         {% endif %}
+         alt="livingwateraeration" >
+  </a>
+</div>
+
+<div class="ourServiceImg">
+  <!-- eKomiWidget START -->
+  <div id="eKomiWidget_default"></div>
+  <!-- eKomiWidget END -->
+
+  <!-- eKomiLoader START, only needed once per page -->
+  <script type="text/javascript">
+    (function(){
+      eKomiIntegrationConfig = new Array(
+        {certId:'05E712BB266CF0E'}
+      );
+      if(typeof eKomiIntegrationConfig != "undefined"){for(var eKomiIntegrationLoop=0;eKomiIntegrationLoop<eKomiIntegrationConfig.length;eKomiIntegrationLoop++){
+        var eKomiIntegrationContainer = document.createElement('script');
+        eKomiIntegrationContainer.type = 'text/javascript'; eKomiIntegrationContainer.defer = true;
+        eKomiIntegrationContainer.src = (document.location.protocol=='https:'?'https:':'http:') +"//connect.ekomi.de/integration_1554901710/" + eKomiIntegrationConfig[eKomiIntegrationLoop].certId + ".js";
+        document.getElementsByTagName("head")[0].appendChild(eKomiIntegrationContainer);
+      }}else{if('console' in window){ console.error('connectEkomiIntegration - Cannot read eKomiIntegrationConfig'); }}
+    })();
+  </script>
+</div>

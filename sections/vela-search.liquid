@@ -1,0 +1,63 @@
+{% if section.settings.section_enable %}
+<div class="velaSearchSection {% if section.settings.subfixclass !=blank %} {{section.settings.subfixclass}}{% endif %}" 
+     style="{% if section.settings.margin_block !=blank %}margin:{{section.settings.margin_block}}; {% endif %}
+            {% if section.settings.padding_block !=blank %}padding:{{section.settings.padding_block}}; {% endif %}">
+   	<div class="container{% if section.settings.full_with %}-full{% endif %}">
+   		<div class="velaContent">		
+	   		<div class="row">
+              <div class="col-xs-12">
+                {% if section.settings.serach_heading !=blank %}<h3>{{section.settings.serach_heading}}</h3>{% endif %}
+                {% include 'vela-searchpage' %}
+              </div>
+	   		</div>
+	   	</div>
+   	</div>
+</div>
+{% endif %}
+
+{% schema %}
+  {
+    "name": "Vela Search",
+	"class": "velaFramework",
+    "settings":[      
+         {
+            "type": "header",
+            "content": "Design Section"
+         },
+         {
+            "type": "checkbox",
+            "id": "section_enable",
+            "label": "Enabel Section?",
+            "default": true
+         },
+         {
+            "type": "checkbox",
+            "id": "full_with",
+            "label": "Enabel Full Width?"
+         },
+         {
+         	"type": "text",
+         	"id": "subfixclass",
+         	"label": "Add class"
+         },
+         {
+            "type": "text",
+            "id": "margin_block",
+            "label": "Margin",
+            "placeholder": "0px 0px"
+         },
+         {
+            "type": "text",
+            "id": "padding_block",
+            "label": "Padding",
+            "placeholder": "0px 0px"
+         },
+		 {
+			"type": "text",
+			"id": "serach_heading",
+			"label": "Section title",
+			"default": "Search Living Water Database"
+		 }
+	]
+  }
+{% endschema %}

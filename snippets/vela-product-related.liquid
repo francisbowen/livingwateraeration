@@ -1,0 +1,50 @@
+{% if section.settings.product_related_enable %}
+	{% assign proCol = 4 %}
+	{% assign proLimit = section.settings.product_related_limit | plus: 0 %}
+	{% assign currentProduct = product %}
+	{% if collection == null or collection.handle == 'all' %}
+		{% assign foundCollection = false %}
+		{% for item in product.collections %}
+		  	{% if foundCollection == false and item.handle != 'all' and item.all_products_count > 1 %}
+		    	{% assign foundCollection = true %}
+		    	{% assign collection = item %}
+		  	{% endif %}
+		{% endfor %}
+	{% endif %}
+	{% if collection and collection.products_count > 1 %}
+		<section class="proRelated">
+			<div id="relatedProducts" class="velaProducts">
+				{% if section.settings.product_related_title != blank %}
+					<h3 class="velaTitle velaHomeTitle">
+			          	{% if section.settings.product_related_title != blank  %}
+			          		<span class="title">{{ section.settings.product_related_title }}</span>
+			          	{% endif %}
+			          	{% if section.settings.product_related_subtitle != blank %}
+			          	<span class="subtitle">{{ section.settings.product_related_subtitle }}</span>
+			          	{% endif %}
+					</h3>
+				{% endif %}
+				<div class="velaContent">
+					<div class="velaOwlRow owlCarouselPlay proList grid">
+                  <div class="owl-carousel"   data-nav="true" 
+                                            data-autoplay="true" 
+                                            data-autospeed="800" 
+                                            data-speed="10000" 
+                                            data-columnone="4" 
+                                            data-columntwo="3" 
+                                            data-columnthree="2"
+                                            data-columnfour="1">
+							{% for product in collection.products limit:proLimit %}
+								{% unless product.handle == currentProduct.handle %}
+									<div class="item">
+										{% include 'product-grid-item' %}
+									</div>
+								{% endunless %}
+							{% endfor %}
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+	{% endif %}
+{% endif %}

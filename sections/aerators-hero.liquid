@@ -1,0 +1,123 @@
+{% if section.settings.section_enable %}
+<div class="velaVideo velaResourcesVideo{% if section.settings.subfixclass !=blank %} {{section.settings.subfixclass}}{% endif %}" 
+     style=" {% if section.settings.margin_block !=blank %}margin:{{section.settings.margin_block}}; {% endif %}
+             {% if section.settings.padding_block !=blank %}padding:{{section.settings.padding_block}}; {% endif %}">
+   	<div class="container{% if section.settings.full_with %}-full{% endif %}">
+   		<h1 class="ResourcePageTitle">
+            {% if section.settings.heading_title != blank  %}
+                <span class="title">
+               {{ section.settings.heading_title }}
+            	</span>
+          	{% endif %}
+         </h1>	
+      <div class="velaContent">		
+	   		<div class="row">
+	   			{% if section.settings.video_link !=blank %}
+		   			<div class="col-xs-12 col-sm-6">
+		   				<div class="videoContainer">
+		   					<iframe width="100%" height="325" src="https://www.youtube.com/embed/{{section.settings.video_link}}" frameborder="0" allowfullscreen></iframe>
+		   				</div>
+		   			</div>
+		   		{% endif %}
+              	<div class="col-xs-12 col-sm-6">
+                    {% if section.settings.video_title != blank %}
+                        <h4 class="velaPageSubTitle">
+                            <span>{{ section.settings.video_title }}</span>
+                        </h4>
+                    {% endif %}
+			   		{% if section.settings.video_desc !=blank %}
+				   		<div class="videoDesc">
+				   			{{ section.settings.video_desc }}			   			
+				   		</div>
+                    {% endif %}
+                  	{% if section.settings.button_url !=blank %}
+                  <a class="btn btnVelaTwo" href="{{section.settings.button_url}}">{% if section.settings.button_text !=blank %}{{section.settings.button_text}}{% endif %}</a>
+                    {% endif %}
+	   			</div>
+	   		</div>
+	   	</div>
+   	</div>
+</div>
+<hr style="
+      width: 50%;
+      border: 0 none;
+      border-bottom-width: 1px;
+      border-bottom-style: solid;
+      border-bottom-color: rgba(0, 0, 0, 1.0);
+      margin-left: auto;
+      margin-right: auto;
+      margin-top: 0;
+      margin-bottom: 0;
+    ">
+{% endif %}
+{% schema %}
+   {
+     	"name": "Hero Aerators",
+     	"class": "velaFramework",
+     	"settings":[      
+         {
+            "type": "header",
+            "content": "Design Section"
+         },
+         {
+            "type": "checkbox",
+            "id": "section_enable",
+            "label": "Enabel Section?",
+            "default": true
+         },
+         {
+            "type": "checkbox",
+            "id": "full_with",
+            "label": "Enabel Full Width?"
+         },
+         {
+         	"type": "text",
+         	"id": "subfixclass",
+         	"label": "Add class"
+         },
+         {
+            "type": "text",
+            "id": "margin_block",
+            "label": "Margin",
+            "placeholder": "0px 0px"
+         },
+         {
+            "type": "text",
+            "id": "padding_block",
+            "label": "Padding",
+            "placeholder": "0px 0px"
+         },
+         {
+            "type": "header",
+            "content": "General Settings"
+         },
+         {
+	        	"type": "text",
+	        	"id": "heading_title",
+	        	"label": "Page Heading"
+	      },
+	      {
+	        	"type": "textarea",
+	        	"id": "video_desc",
+	        	"placeholder": "Desc for Video",
+	        	"label": "Video Description"
+	      },
+	      {
+	        	"type": "text",
+	        	"id": "video_link",
+	        	"label": "ID Link video?",
+	        	"info": "Ex: https:\/\/www.youtube.com\/watch?v=g3uRJT_yilw ->ID: g3uRJT_yilw"
+	      },
+         {
+            "type": "text",
+            "id": "button_text",
+            "label": "Button text"
+         },
+         {
+            "type": "url",
+            "id": "button_url",
+            "label": "Button link"
+         }
+      ]
+   }
+{% endschema %}

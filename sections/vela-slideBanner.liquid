@@ -1,0 +1,280 @@
+{%if section.settings.section_enable %}
+
+{%- assign owlColumn1 = section.settings.column1 | plus:0 -%}
+{%- assign owlColumn2 = section.settings.column2 | plus:0 -%}
+{%- assign owlColumn3 = section.settings.column3 | plus:0 -%}
+{%- assign owlColumn4 = section.settings.column4 | plus:0 -%}
+<div class="velaSlideBanner{% if section.settings.subfixclass !=blank %} {{section.settings.subfixclass}}{% endif %}" style="background-color: {{section.settings.color_bg }};{% if section.settings.img_bg !=blank %} background-image: url({{ section.settings.img_bg | img_url: "master" }});{% endif %}
+                                     {% if section.settings.margin_block !=blank %}margin:{{section.settings.margin_block}}; {% endif %}
+                                     {% if section.settings.padding_block !=blank %}padding:{{section.settings.padding_block}}; {% endif %}">
+   <div class="container{% if section.settings.full_with %}-full{% endif %}">
+        <div class="velaContent">
+
+                <div class="slickCarousel" data-slick='{"slidesToShow": {{ owlColumn1 }},
+                                                       "slidesToScroll": 1,
+                                                       "arrows": {{ section.settings.navigation }},
+                                                       "infinite": true,
+                                                       "autoplay": {{ section.settings.autoplay }},
+                                                       "autoplaySpeed": {{ section.settings.autoplay_speed }},
+                                                       "touchMove": true,
+                                                       "speed": {{ section.settings.speed }} }'
+                                                        data-columntwo="{{ owlColumn2 }}"
+                                                        data-columnthree="{{ owlColumn3 }}"
+                                                        data-columnfour="{{ owlColumn4 }}"
+                                                        data-columnfive="1">                            
+                    {% for block in section.blocks %}
+                        <div class="item">
+                            <div class="bannerItem">
+                                {% if block.settings.link != blank %}<a href="{{ block.settings.link }}">{% endif %}
+                                    {% if block.settings.image != blank %}
+                                        <img class="img-responsive" alt="{{ block.settings.image.alt | default: shop.name }}" src="{{ block.settings.image | img_url: "master" }}" />
+                                    {% else %}
+                                        <img class="img-responsive" alt="{{ shop.name }}" src="//placehold.it/1170x560" />
+                                    {% endif %}
+                                {% if block.settings.link != blank %}</a>{% endif %}
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+
+        </div>
+    </div>
+</div>
+{% endif %}
+{% schema %}
+    {
+         "name": "Vela Banner Slide",
+         "class": "velaFramework",
+         "max_blocks": 18,
+         "settings":[
+            {
+             "type": "header",
+             "content": "Design Section"
+            },
+            {
+                "type": "checkbox",
+                "id": "section_enable",
+                "label": "Enabel Section?",
+                "default": true
+            },
+            {
+                "type": "checkbox",
+                "id": "full_with",
+                "label": "Enabel Full Width?"
+            },
+            {
+                "type": "text",
+                "id": "subfixclass",
+                "label": "Add class"
+            },
+            {
+                "type": "image_picker",
+                "id": "img_bg",
+                "label": "background image for block"
+            },
+            {
+                "type": "color",
+                "id": "color_bg",
+                "label": "Background Color",
+                "default": "rgba(0,0,0,0)"
+            },
+            {
+                "type": "text",
+                "id": "margin_block",
+                "label": "Margin",
+                "placeholder": "0px 0px"
+            },
+            {
+                "type": "text",
+                "id": "padding_block",
+                "label": "Padding",
+                "placeholder": "0px 0px"
+            },
+            {
+                "type": "header",
+                "content": "General Settings"
+            },
+            {
+                "type": "header",
+                "content": "Carousel Settings"
+            },
+            {
+                "type": "select",
+                "id": "column1",
+                "label": "#Column 1",
+                "default": "1",
+                "info": "Large desktops",
+                "options":[
+                    {
+                        "value": "1",
+                        "label": "1"
+                    },
+                    {
+                        "value": "2",
+                        "label": "2"
+                    },
+                    {
+                        "value": "3",
+                        "label": "3"
+                    },
+                    {
+                        "value": "4",
+                        "label": "4"
+                    },
+                    {
+                        "value": "5",
+                        "label": "5"
+                    }
+                ]
+            },
+            {
+               "type": "select",
+               "id": "column2",
+               "label": "#Column 2",
+               "default": "1",
+               "info": "Desktops & Tablets landscape",
+               "options":[
+                 {
+                     "value": "1",
+                     "label": "1"
+                 },
+                 {
+                     "value": "2",
+                     "label": "2"
+                 },
+                 {
+                     "value": "3",
+                     "label": "3"
+                 },
+                 {
+                     "value": "4",
+                     "label": "4"
+                 },
+                 {
+                     "value": "5",
+                     "label": "5"
+                 }
+               ]
+            },
+            {
+                "type": "select",
+                "id": "column3",
+                "label": "#Column 3",
+                "info": "Tablets & Phones landscape",
+                "default": "1",
+                "options":[
+                    {
+                        "value": "1",
+                        "label": "1"
+                    },
+                    {
+                        "value": "2",
+                        "label": "2"
+                    },
+                    {
+                        "value": "3",
+                        "label": "3"
+                    },
+                    {
+                        "value": "4",
+                        "label": "4"
+                    },
+                    {
+                        "value": "5",
+                        "label": "5"
+                    }
+                ]
+            },
+            {
+               "type": "select",
+               "id": "column4",
+               "label": "#Column 4",
+               "default": "1",
+               "info": "Smartphones",
+               "options":[
+                    {
+                        "value": "1",
+                        "label": "1"
+                    },
+                    {
+                        "value": "2",
+                        "label": "2"
+                    },
+                    {
+                        "value": "3",
+                        "label": "3"
+                    },
+                    {
+                        "value": "4",
+                        "label": "4"
+                    },
+                    {
+                        "value": "5",
+                        "label": "5"
+                    }
+                ]
+            },
+            {
+                "type": "checkbox",
+                "id": "navigation",
+                "label": "Show Navigation",
+                "default": true
+            },
+            {
+                "type": "checkbox",
+                "id": "autoplay",
+                "label": "Auto Play",
+                "default": false
+            },
+            {
+                "type": "text",
+                "id": "autoplay_speed",
+                "label": "Auto Play Speed",
+                "info": "Default: 10000(ms)",
+                "default": "10000"
+            },
+            {
+                "type": "text",
+                "id": "speed",
+                "label": "Speed",
+                "info": "Slide/Fade animation speed",
+                "default": "300"
+            }
+        ],
+      "blocks": [
+         {
+            "type": "image",
+            "name": "Banner Item",
+            "settings": [
+              {
+                  "type": "image_picker",
+                  "id": "image",
+                  "label": "Banner Image"
+              },
+              {
+                  "type": "text",
+                  "id": "link",
+                  "label": "Banner Link"
+              }
+            ]
+         }
+      ],
+     "presets": [
+      {
+         "name": "Vela Slide Banner",
+         "category": "4. Vela Image",
+         "blocks": [
+            {
+               "type":"image"
+            },
+            {
+               "type":"image"
+            },
+            {
+               "type":"image"
+            }
+         ]
+      }
+   ]
+}
+{% endschema %}

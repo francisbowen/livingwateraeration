@@ -1,0 +1,54 @@
+{%- if request.host contains 'myshopify.com' -%}
+   {%- assign is_admin_interface = true -%}
+{%- else -%}
+   {%- assign is_admin_interface = false -%}
+{%- endif -%}
+
+{%- if template.name == 'cart' -%}
+   {%- assign is_admin_interface = true -%}
+{%- endif -%}
+
+
+{% assign proImageSize = 'medium' %}
+{% assign on_sale = false %}
+{% if product.compare_at_price > product.price %}
+    {% assign on_sale = true %}
+{% endif %}
+{% assign sold_out = true %}
+{% if product.available %}
+    {% assign sold_out = false %}
+{% endif %}
+<div class="velaProBlock {{ product-list-item }} ">
+    <div class="row">
+        <div class="col-xs-12 col-sm-5 col-md-4">
+            <div class="proHImage">
+                <a class="proFeaturedImage" href="{{ product.url }}">         
+                    <img 
+                         {% if settings.is-speed_optimized and is_admin_interface == false %}
+                         class="lazyloadagc img-responsive"
+                         src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
+                         data-src="{{ product.featured_imagess | product_img_url:proImageSize }}"
+                         {% else %}
+                         class="img-responsive"
+                         src="{{ product.featured_imagess | product_img_url:proImageSize }}"
+                         {% endif %}
+                         
+                         alt="{{ product.featured_image.alt | escape }}"  />           
+                </a>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-7 col-md-8">
+            <div class="proContent">
+                <h5 class="proName">
+                    <a href="{{ product.url }}">{{ product.title }}</a>
+                </h5>
+                <div class="proPrice">
+                    <div class="priceProduct priceSale">{{ product.price | money }}</div>
+                    {% if on_sale %}
+                        <div class="priceProduct priceCompare">{{ product.compare_at_price | money }}</div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

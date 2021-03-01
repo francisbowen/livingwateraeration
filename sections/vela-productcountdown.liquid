@@ -1,0 +1,359 @@
+{%- if request.host contains 'myshopify.com' -%}
+   {%- assign is_admin_interface = true -%}
+{%- else -%}
+   {%- assign is_admin_interface = false -%}
+{%- endif -%}
+
+{%- if template.name == 'cart' -%}
+   {%- assign is_admin_interface = true -%}
+{%- endif -%}
+
+{%- assign owlColumn1 = section.settings.column1 | plus:0 -%}
+{%- assign owlColumn2 = section.settings.column2 | plus:0 -%}
+{%- assign owlColumn3 = section.settings.column3 | plus:0 -%}
+{%- assign owlColumn4 = section.settings.column4 | plus:0 -%}
+{%- assign proRow = section.settings.row | plus:0 -%}
+{%- assign proLimit = section.settings.limit | plus:0 -%}
+
+<div id="productdeal" class="velaProductsCountDown" style="background-color: {{section.settings.color_bg }};{% if section.settings.img_bg !=blank %}background-image: url({{ section.settings.img_bg | img_url: "master" }});{% endif %}
+                      {% if section.settings.margin_block !=blank %}margin:{{section.settings.margin_block}}; {% endif %}
+                      {% if section.settings.padding_block !=blank %}padding:{{section.settings.padding_block}}; {% endif %}">
+   <div class="container{% if section.settings.full_with %}-full{% endif %}">     	
+      {% if section.settings.title != blank %}
+		<h3 class="velaTitle velaHomeTitle">
+          	{% if section.settings.title != blank  %}{{ section.settings.title }}
+          	{% endif %}
+          	{% if section.settings.subtitle != blank %}
+          	<span class="subtitle">{{ section.settings.subtitle }}</span>
+          	{% endif %}
+		</h3>
+		{% endif %}
+        <div class="velaContent">
+           	<div class="velaOwlRow owlCarouselPlay proList">
+              <div class="owl-carousel"   data-nav="{{ section.settings.navigation }}" 
+                   data-autoplay="{{ section.settings.autoplay }}" 
+                   data-autospeed="{{ section.settings.autoplay_speed }}" 
+                   data-speed="{{ section.settings.speed }}" 
+                   data-columnone="{{ owlColumn1 }}" 
+                   data-columntwo="{{ owlColumn2 }}" 
+                   data-columnthree="{{ owlColumn3 }}"
+                   data-columnfour="{{ owlColumn4 }}">
+					{% for block in section.blocks %}
+						{% assign product = all_products[block.settings.product_item] %}
+							{% assign on_sale = false %}
+                  {% if product.compare_at_price > product.price %}
+                    	{% assign on_sale = true %}
+                    	{% assign price_sale = product.compare_at_price | minus: product.price | times: 100.0 | divided_by: product.compare_at_price | round: 0 %}
+                  {% endif %}
+                  {% assign sold_out = true %}
+                  {% if product.available %}
+                  	{% assign sold_out = false %}
+                  {% endif %}
+                  <div class="item">
+							<div class="velaProBlock">
+                        <div class="proHImage col-xs-12 col-sm-4 col-md-4">
+                           <a class="proFeaturedImage" href="{{ product.url }}" title="{{ product.title }}">
+                              <img 
+                                   {% if settings.is-speed_optimized and is_admin_interface == false %}
+                                   class="lazyloadagc img-responsive"
+                                   src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
+                                   data-src="{{ product.featured_image | product_img_url:'large' }}"
+                                   {% else %}
+                                   class="img-responsive" 
+                                   src="{{ product.featured_image | product_img_url:'large' }}"
+                                   {% endif %}
+                                   alt="{{ product.featured_image.alt | escape }}" />
+                           </a>
+                           {% if on_sale %}
+                               <span class="labelSale">-{{ price_sale }}<sup>%</sup></span>
+                           {% endif %}
+                          	<div class="proPrice clearfix">
+                            	<div class="priceProduct priceSale">{{ product.price | money }}</div>
+                            	{% if on_sale %}
+                                <div class="priceProduct priceCompare">{{ product.compare_at_price | money }}</div>
+                            	{% endif %}
+                          	</div>	                                
+                        </div>
+                        <div class="proContent col-xs-12 col-sm-6 col-md-6 col-md-offset-2">
+                          	<h5 class="proName clearfi">
+                              <a href="{{ product.url }}" title="{{ product.title }}">{{ product.title }}</a>
+                          	</h5>
+                          	{% if settings.product_reviews_enable %}
+                              <div class="proReviews">
+                                 <span class="shopify-product-reviews-badge" data-id="{{ product.id }}"></span>
+                              </div>
+                          	{% endif %}
+                          	<div class="proDescription">{{ product.description | strip_html | truncatewords: 20}}</div>                               
+                          	{% if block.settings.countdown_timeend != blank %}                                
+                            	{% assign countdownTime = block.settings.countdown_timeend %}
+                            	<div class="velaCountdown" data-countdown="{{ countdownTime }}"></div>
+                          	{% endif %}
+                          	<div class="button-countdown clearfix">
+                          		<a href="{{ product.url }}" class="btn-shopnow" title="{{ 'general.button.shopnow' | t }}">{{ 'general.button.shopnow' | t }}</a>
+                          	</div>
+                        </div>
+                     </div>
+                  </div>
+               {% endfor %}
+          	</div>
+         </div>
+      </div>
+  	</div>
+</div>
+{% schema %}
+{
+	"name": "Vela Products CountDown",
+	"class": "velaFramework",
+	"settings":[
+		{
+         "type": "header",
+         "content": "Design Block"
+      },
+      {
+         "type": "checkbox",
+         "id": "full_with",
+         "label": "Enabel Full Width?"
+      },
+      {
+         "type": "color",
+         "id": "color_bg",
+         "label": "Background Color",
+         "default": "rgba(0,0,0,0)"
+      },
+      {
+         "type": "image_picker",
+         "id": "img_bg",
+         "label": "background image for block"
+      },
+      {
+         "type": "text",
+         "id": "margin_block",
+         "label": "Margin",
+         "placeholder": "0px 0px"
+      },
+      {
+         "type": "text",
+         "id": "padding_block",
+         "label": "Padding",
+         "placeholder": "0px 0px"
+      },
+		{
+       	"type": "header",
+       	"content": "General Settings"
+      },
+		{
+         "type": "text",
+         "id": "title",
+         "label": "Title",
+         "placeholder": "Title of section"
+      },
+		{
+         "type": "text",
+         "id": "subtitle",
+         "label": "SubTitle",
+         "placeholder": "Subtitle of section"
+      },
+      {
+         "type": "header",
+         "content": "Carousel Settings"
+      },
+      {
+      "type": "select",
+      "id": "column1",
+      "label": "#Column 1",
+      "default": "4",
+		"info": "Large desktops",
+         "options":[
+         	{
+         		"value": "1",
+                 "label": "1"
+         	},
+         	{
+         		"value": "2",
+                 "label": "2"
+         	},
+         	{
+         		"value": "3",
+                 "label": "3"
+         	},
+         	{
+         		"value": "4",
+                 "label": "4"
+         	},
+         	{
+         		"value": "5",
+                 "label": "5"
+         	}
+         ]
+      },
+		{
+         "type": "select",
+         "id": "column2",
+         "label": "#Column 2",
+         "default": "3",
+			"info": "Desktops & Tablets landscape",
+         "options":[
+         	{
+         		"value": "1",
+                 "label": "1"
+         	},
+         	{
+         		"value": "2",
+                 "label": "2"
+         	},
+         	{
+         		"value": "3",
+                 "label": "3"
+         	},
+         	{
+         		"value": "4",
+                 "label": "4"
+         	},
+         	{
+         		"value": "5",
+                 "label": "5"
+         	}
+         ]
+      },
+		{
+         "type": "select",
+         "id": "column3",
+         "label": "#Column 3",
+			"info": "Tablets & Phones landscape",
+         "default": "2",
+         "options":[
+         	{
+         		"value": "1",
+                 "label": "1"
+         	},
+         	{
+         		"value": "2",
+                 "label": "2"
+         	},
+         	{
+         		"value": "3",
+                 "label": "3"
+         	},
+         	{
+         		"value": "4",
+                 "label": "4"
+         	},
+         	{
+         		"value": "5",
+                 "label": "5"
+         	}
+         ]     
+      },
+		{
+         "type": "select",
+         "id": "column4",
+         "label": "#Column 4",
+         "default": "2",
+			"info": "Smartphones",
+            "options":[
+            	{
+            		"value": "1",
+                    "label": "1"
+            	},
+            	{
+            		"value": "2",
+                    "label": "2"
+            	},
+            	{
+            		"value": "3",
+                    "label": "3"
+            	},
+            	{
+            		"value": "4",
+                    "label": "4"
+            	},
+            	{
+            		"value": "5",
+                    "label": "5"
+            	}
+            ]
+        },
+        {
+            "type": "select",
+            "id": "row",
+            "label": "Row",
+            "default": "1",
+            "options":[
+            	{
+            		"value": "1",
+                    "label": "1"
+            	},
+            	{
+            		"value": "2",
+                    "label": "2"
+            	}
+            ]
+        },
+        {
+            "type": "text",
+            "id": "limit",
+            "label": "Limit",
+            "default": "8"
+        },
+        {
+            "type": "checkbox",
+            "id": "navigation",
+            "label": "Show Navigation",
+            "default": true
+        },
+        {
+            "type": "checkbox",
+            "id": "autoplay",
+            "label": "Auto Play",
+            "default": false
+        },
+        {
+            "type": "text",
+            "id": "autoplay_speed",
+            "label": "Auto Play Speed",
+            "info": "Default: 10000(ms)",
+            "default": "10000"
+        },
+        {
+            "type": "text",
+            "id": "speed",
+            "label": "Speed",
+            "info": "Slide/Fade animation speed",
+            "default": "300"
+        }
+	],
+	"blocks": [
+		{
+	      "type": "item",
+	      "name": "Product Item",
+	      "settings": [
+      		{
+               "type": "product",
+               "id": "product_item",
+               "label": "Select a product"
+            },
+            {
+		        "type": "text",
+		        "id": "countdown_timeend",
+		        "label": "Time End",
+		        "placeholder": "YYYY\/MM\/DD"
+		      },
+		      {
+		        "type": "paragraph",
+		        "content": "Format: 'Year\/Month\/Day'"
+		      },
+		      {
+		        "type": "paragraph",
+		        "content": "Example: '2017\/01\/30'"
+		      }
+         ]
+      }
+	],
+	"presets": [
+      {
+         "name": "Vela Products CountDown",
+         "category": "2. Vela Product"
+     }
+   ]
+}
+{% endschema %}

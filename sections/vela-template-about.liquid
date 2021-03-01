@@ -1,0 +1,41 @@
+<div class="pageContent" style="{% if section.settings.img_bg !=blank %}background-image: url({{ section.settings.img_bg | img_url: "master" }});{% endif %}
+                                     {% if section.settings.margin_block !=blank %}margin:{{section.settings.margin_block}}; {% endif %}
+                                     {% if section.settings.padding_block !=blank %}padding:{{section.settings.padding_block}}; {% endif %}">
+   	<div class="container{% if section.settings.full_with %}-full{% endif %}">					
+   		{{ page.content }}
+   	</div>
+</div>
+{% schema %}
+   {
+     	"name": "Vela About",
+     	"class": "velaFramework",
+     	"settings":[      
+         {
+            "type": "header",
+            "content": "Design Block"
+         },
+         {
+            "type": "image_picker",
+            "id": "img_bg",
+            "label": "background image for block"
+         },
+         {
+            "type": "text",
+            "id": "margin_block",
+            "label": "Margin",
+            "placeholder": "0px 0px"
+         },
+         {
+            "type": "text",
+            "id": "padding_block",
+            "label": "Padding",
+            "placeholder": "0px 0px"
+         },
+         {
+            "type": "checkbox",
+            "id": "full_with",
+            "label": "Enabel Full Width?"
+         }
+      ]
+   }
+{% endschema %}

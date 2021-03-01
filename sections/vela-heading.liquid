@@ -1,0 +1,148 @@
+{% if section.settings.section_enable %}
+{% if section.settings.heading_text !=blank %}
+<div class="container velaHeading {% if section.settings.subfixclass !=blank %} {{section.settings.subfixclass}}{% endif %}" 
+     style="{% if section.settings.margin_block !=blank %}margin:{{section.settings.margin_block}}; {% endif %}
+            {% if section.settings.padding_block !=blank %}padding:{{section.settings.padding_block}}; {% endif %}">
+<{{section.settings.heading_type}} style="{% if section.settings.heading_color !=blank %} color:{{section.settings.heading_color}}; {% endif %}
+                                          {% if section.settings.heading_align !=blank %} text-align:{{section.settings.heading_align}}; {% endif %}
+                                          {% if section.settings.heading_weight !=blank %} font-weight:{{section.settings.heading_weight}}; {% endif %}
+                                          {% if section.settings.heading_size !=blank %} font-size:{{section.settings.heading_size}}px; {% endif %}">
+	{{section.settings.heading_text}}
+</{{section.settings.heading_type}}>
+</div>
+{% endif %}
+{% endif %}
+
+{% schema %}
+  {
+    "name": "Vela Heading",
+	"class": "velaFramework",
+    "settings":[      
+         {
+            "type": "header",
+            "content": "Design Section"
+         },
+         {
+            "type": "checkbox",
+            "id": "section_enable",
+            "label": "Enabel Section?",
+            "default": true
+         },
+         {
+         	"type": "text",
+         	"id": "subfixclass",
+         	"label": "Add class"
+         },
+         {
+            "type": "text",
+            "id": "margin_block",
+            "label": "Margin",
+            "placeholder": "0px 0px"
+         },
+         {
+            "type": "text",
+            "id": "padding_block",
+            "label": "Padding",
+            "placeholder": "0px 0px"
+         },
+		{
+          "type": "text",
+          "id": "heading_text",
+          "label": "Text",
+          "default": "Heading"
+		},
+        {
+           "type": "select",
+           "id": "heading_type",
+           "label": "Heading type",
+           "options": [
+             {
+               "value": "h1",
+               "label": "H1"
+             },
+             {
+               "value": "h2",
+               "label": "H2"
+             },
+             {
+               "value": "h3",
+               "label": "H3"
+             },
+             {
+               "value": "h4",
+               "label": "H4"
+             },
+             {
+               "value": "h5",
+               "label": "H5"
+             },
+             {
+               "value": "h6",
+               "label": "H6"
+             }
+           ],
+           "default":   "h1"
+        },
+        {
+	        "type": "color",
+	        "id": "heading_color",
+	        "label": "Heading Color",
+	        "default": "rgba(0,0,0,1)"
+	    },
+    	{
+           "type": "select",
+           "id": "heading_align",
+           "label": "Heading align",
+           "options": [
+             {
+               "value": "left",
+               "label": "Left"
+             },
+             {
+               "value": "center",
+               "label": "Center"
+             },
+             {
+               "value": "right",
+               "label": "Right"
+             }
+           ],
+           "default":   "left"
+        },
+    	{
+           "type": "select",
+           "id": "heading_weight",
+           "label": "Heading weight",
+           "options": [
+             {
+               "value": "100",
+               "label": "Light"
+             },
+             {
+               "value": "400",
+               "label": "Normal"
+             },
+             {
+               "value": "600",
+               "label": "Semi bold"
+             },
+          	{
+               "value": "700",
+               "label": "Bold"
+             }
+           ],
+           "default":   "400"
+        },
+        {
+            "type":      "range",
+            "id":        "heading_size",
+            "min":       9,
+            "max":        60,
+            "step":       1,
+            "unit":       "px",
+            "label":     "Heading size",
+            "default":   24
+        }
+	]
+  }
+{% endschema %}

@@ -1,0 +1,143 @@
+{% assign current_variant = product.selected_or_first_available_variant %}
+{% include 'breadcrumb' %}
+<section id="pageContent">
+    <div class="container">
+        {% section 'vela-template-product' %}
+      	{% include 'custom-related-product' %}
+    </div>
+</section>
+
+<script>
+    var selectCallback = function(variant, selector) {
+        vela.productPage({
+            money_format: "{{ shop.money_format }}",
+            variant: variant,
+            selector: selector
+        });
+    };
+    $(document).ready(function() {
+      jQuery('.owl-carousel').owlCarousel({
+        responsive:{
+              0:{
+                  items:1
+              },
+              450:{
+                  items:2
+              },
+              675:{
+                  items:3
+              },
+            1000:{
+                  items:4
+              },
+            	
+          }
+      });
+        $('.tooltip-popup-2,.tooltip-popup-1').tooltip('enable');
+        new Shopify.OptionSelectors('productSelect', {
+            product: {{ product | json }},
+            onVariantSelected: selectCallback,
+            enableHistoryState: true
+        });
+      
+        {% if product.available and product.options.size > 1 %}
+            Shopify.linkOptionSelectors({{ product | json }});
+        {% endif %}
+        {% if product.options.size == 1 and product.options.first != 'Title' %}
+            $('.selector-wrapper:eq(0)').prepend('<label for="productSelect-option-0">{{ product.options.first | escape }}</label>');
+        {% endif %}
+        {% if product.variants.size == 1 and product.variants.first.title contains 'Default' %}
+            $('.selector-wrapper').hide();
+            $('.swatch').hide();
+        {% endif %}
+        $('.proDetailInfo .nav-tabs li:first, .proDetailInfo .tab-content .tab-pane:first').addClass('active');
+        $('.proDetailInfo .velaPanel:first .panel-collapse').addClass('in');
+    });
+</script>
+{% assign current_variant = product.selected_or_first_available_variant %}
+<script type="application/ld+json">
+{
+       "@context": "http://schema.org/",
+       "@type": "Product",
+  	   "url": "{{shop.secure_url | escape}}{{ product.url | escape }}",
+  	   "name": "{{ product.title | escape }}",
+       "image": "https:{{ product.featured_image.src | img_url: 'master' }}",
+       "description": "{{ product.description | escape }}",
+       "brand": {
+           "name": "{{ product.vendor }}"
+       },           
+       "sku": "{{ product.variants.first.sku }}",
+       "mpn": "{{ product.variants.first.sku }}",
+       "offers": {
+           "@type": "Offer",
+           "priceCurrency": "{{ shop.currency }}",
+           "price": "{{ current_variant.price | money_without_currency }}",
+           "availability": "http://schema.org/{% if product.available %}InStock{% else %}OutOfStock{% endif %}",
+           "seller": {
+               "@type": "Organization",
+                "name": "{{ shop.name }}"
+           },
+           "url": "{{shop.secure_url | escape}}{{ product.url | escape }}"
+       }
+      {% if product.metafields.stamped.reviews_count and product.metafields.stamped.reviews_count != "0" %},"aggregateRating": {
+"@type": "AggregateRating",
+"ratingValue": {{ product.metafields.stamped.reviews_average | round:2 }},
+"reviewCount": {{ product.metafields.stamped.reviews_count }},
+"bestRating": 5,
+"worstRating": 1
+},
+"review": {
+"@type": "Review",
+"reviewRating": {
+"@type": "Rating",
+"ratingValue": "5",
+"bestRating": "5"
+},
+"author": {
+"@type": "Organization",
+"name": "{{shop.name}}"
+}
+}
+{% endif %}
+}
+</script>
+
+<script type="text/javascript">
+
+  var _learnq = _learnq || [];
+
+  if ( document.querySelector('.add_to_cart')) {
+    document.querySelector('.add_to_cart').addEventListener('click',function (){
+
+      _learnq.push(['track', 'Added to Cart', item]);
+
+    });
+  }
+</script>
+
+<script type="text/javascript">
+  var _learnq = _learnq || [];
+  var item = {
+    Name: {{ product.title|json }},
+    ProductID: {{ product.id|json }},
+    Categories: {{ product.collections|map:'title'|json }},
+    ImageURL: "https:{{ product.featured_image.src|img_url:'grande' }}",
+    URL: "{{ shop.secure_url }}{{ product.url }}",
+    Brand: {{ product.vendor|json }},
+    Price: {{ product.price|money|json }},
+    CompareAtPrice: {{ product.compare_at_price_max|money|json }}
+  };
+  _learnq.push(['track', 'Viewed Product', item]);
+  _learnq.push(['trackViewedItem', {
+    Title: item.Name,
+    ItemId: item.ProductID,
+    Categories: item.Categories,
+    ImageUrl: item.ImageURL,
+    Url: item.URL,
+    Metadata: {
+      Brand: item.Brand,
+      Price: item.Price,
+      CompareAtPrice: item.CompareAtPrice
+    }
+  }]);
+</script>

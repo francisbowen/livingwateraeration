@@ -1,0 +1,7 @@
+{% unless template == 'index' or template == 'cart' %}
+<section id="velaBreadcrumbs">
+    <div class="container">
+        {% include 'uncomplicated.categories.catbread' %}
+    </div>
+</section>
+{% endunless %}

@@ -1,0 +1,76 @@
+
+
+<div id="lake-pond-info2" class="lake-pond-info col-sm-6">
+  <img 
+       {% if settings.is-speed_optimized and is_admin_interface == false %}
+       class="lazyloadagc img-responsive"
+       src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
+       data-src="https://cdn.shopify.com/s/files/1/0080/8861/7040/files/image_3.png?4929"  
+       {% else %}
+       class="img-responsive"
+       src="https://cdn.shopify.com/s/files/1/0080/8861/7040/files/image_3.png?4929" 
+       {% endif %}  />
+  
+       
+  <div class="overlap-text">
+    <h1><a href="/collections/pond-fountains">{{ section.settings.text-box }}</a></h1>
+  </div>
+  <div class="portfolioDisc">
+    <ul>
+      {% for block in section.blocks %}      
+      <li class ="{% if block.settings.parent %} parent {% else %} child {% endif %}"><a href="{{ block.settings.link }}">{{ block.settings.linktext }}</a></li>
+
+
+      {% endfor %}
+    </ul>
+  </div>
+
+</div>
+
+
+{% schema %}
+  {
+    "name": "Pond Fountains",
+	"max_blocks":15,
+    "settings": [
+      {
+        "id": "text-box",
+        "type": "text",
+        "label": "Heading",
+        "default": "Title"
+      }
+	],
+	"blocks":[
+	{
+		"type":"select",
+		"name":"select",
+		"settings": [
+		{
+			"id":"link",
+			"type":"url",
+			"label":"Button link"
+        },
+		{
+          "id": "linktext",
+          "type": "text",
+          "label":"Button text",
+          "default":"Click here"
+		},
+		{
+		"id": "parent",
+        "type": "checkbox",
+        "label":"Parent",
+        "default":false
+        }
+	]
+	}
+]
+}
+
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

@@ -1,0 +1,13 @@
+{% if section.settings.blocktag_list != blank %}
+   <div class="velaBlockTag velaBlock">
+      {% if section.settings.blocktag_title != blank %}
+     	<h4 class="velaFooterTitle">{{ section.settings.blocktag_title }}</h4>
+     	{% endif %}
+     	<div class="velaContent">
+         {% assign itemArray = section.settings.blocktag_list | split:"," %}
+         {% for itemType in itemArray %}
+            <a href="/collections/all/{{ itemType | handleize }}" title="{{itemType}}">{{itemType}}</a>
+         {% endfor %}
+     	</div>
+ 	</div>
+{% endif %}

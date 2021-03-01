@@ -1,0 +1,499 @@
+<style>
+  .bfepWx.bfepWx.bfepWx.bfepWx.bfepWx.bfepWx{
+  border:none;
+  }
+  
+</style>  
+
+{%- if request.host contains 'myshopify.com' -%}
+   {%- assign is_admin_interface = true -%}
+{%- else -%}
+   {%- assign is_admin_interface = false -%}
+{%- endif -%}
+
+{%- if template.name == 'cart' -%}
+   {%- assign is_admin_interface = true -%}
+{%- endif -%}
+
+<footer id="footer">
+  <div class="newsletter">
+    <form action="" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" target="_blank" class="formNewsletter clearfix" _lpchecked="1">
+      <label>JOIN OUR NEWSLETTER // Special email offers and more!</label>
+      <div class="form-group">
+        <div class="klaviyo-form-LUNQrY"></div>
+	  </div>
+   </form>
+   
+  
+  </div>
+   <div class="footerCenter">
+       <div class="container">
+           <div class="footerCenterWrap">
+               <div class="velaFooterRow flexRow">
+                  {% if section.settings.contactinfo_enable %}
+                     <div class="col-xs-12 col-sm-6 col-md-3">
+                        {%- assign contactinfoDesc = section.settings.contactinfo_desc -%}
+                        {%- assign contactinfoAdd = section.settings.contactinfo_add -%}
+                        {%- assign contactinfoPhone = section.settings.contactinfo_phone -%}
+                        {%- assign contactinfoEmail = section.settings.contactinfo_email -%}
+                        {% include 'vela-contactinfo' %}
+                       	{% if section.settings.social_enable %}
+                           {%- assign socialEnable = section.settings.social_enable -%}
+							<!--   socialTitle this is the correct name           -->
+                           {%- assign socialTitles = section.settings.social_title -%} 
+                           {%- assign socialFacebook = section.settings.social_facebook -%}
+                           {%- assign socialTwitter = section.settings.social_twitter -%}
+                           {%- assign socialInstagram = section.settings.social_instagram -%}
+                           {%- assign socialPinterest = section.settings.social_pinterest -%}
+                           {%- assign socialYoutube = section.settings.social_youtube -%}
+                           {%- assign socialGooglePlus = section.settings.social_googleplus -%}
+                           {%- assign socialRss = section.settings.social_rss -%}
+                           {% include 'vela-social' %}
+                        {% endif %}
+                     </div>
+                  {% endif %}
+                 <div class="col-xs-12 col-sm-6 col-md-6">
+                 {% for block in section.blocks %}
+                     <div class="footerMenu{{ forloop.index }} {{ block.settings.menu_class }}">
+                       {%- assign menuTitle = block.settings.menu_title  -%}
+                       {%- assign menuHandle = block.settings.menu_handle  -%}
+                       {% include 'vela-footer-menu' %}
+                     </div>
+                  {% endfor %} 
+                 </div>
+                 
+                  {% if section.settings.blocktag_enable %}
+                     <div class="col-xs-12 col-sm-6 col-md-3">
+                       {% include 'vela-blocktag' %}
+                     </div>
+                  {% endif %}
+                  {% if section.settings.logo_carousel_enable %}
+                     <div class="col-xs-12 col-sm-6 col-md-3">
+                       {% include 'vela-brands' %}
+                     </div>
+                  {% endif %}
+                    {% if section.settings.newsletter_enable or section.settings.social_enable %}
+                     <div class="col-xs-12 col-sm-12 col-md-3">
+                        {% if section.settings.social_enable %}
+                           {% include 'brands' %}
+                        {% endif %}
+                        {% if section.settings.newsletter_enable %}
+                           {% assign newsletterTitle = section.settings.newsletter_title %}
+                           {% assign newsletterDesc = section.settings.newsletter_description %}
+                              {% assign newsletterMailchimp = section.settings.newsletter_mailchimp %}
+                              {% assign newsletterFormAction = section.settings.newsletter_form_action %}
+                           {% include 'vela-newsletter' %}
+                        {% endif %}
+                       
+                     </div>
+                    {% endif %}
+               </div>
+           </div>
+       </div>
+   </div>
+   <div class="footerCopyRight text-xs-center">
+      <div class="container">
+         <div class="wrapper">
+			<!--        I moved the footer menu to up      -->
+            <div class="velaCopyRight">{{ 'layout.footer.copyright_html' | t }}</div>
+            {% if section.settings.logo_payment_enable %}
+               <div class="logo_payment text-center">
+                  <a href="{{ section.settings.payment_link }}" title="">
+                     {% if section.settings.logo_payment != blank %}
+                        <img 
+                             {% if settings.is-speed_optimized and is_admin_interface == false %}
+                               class="lazyloadagc"
+                               src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
+                               data-src="{{ section.settings.logo_payment | img_url: "master" }}"
+                             {% else %}
+                             	src="{{ section.settings.logo_payment | img_url: "master" }}"
+                             {% endif %}
+                             alt="Payment Methods">
+                     {% endif %}
+                  </a>
+               </div>
+            {% endif %}
+         </div>
+      </div>
+   </div>
+</footer>
+{% schema %}
+   {
+      "name": "Footer",
+      "max_blocks": 4,
+      "settings": [
+         {
+           "type": "header",
+           "content": "Block Contact info"
+         },
+         {
+           "type": "checkbox",
+           "id": "contactinfo_enable",
+           "label": "Block Contact info?"
+         },
+         {
+           "type": "image_picker",
+           "id": "contactinfo_logo",
+           "label": "Logo footer"
+         },
+         {
+            "type": "textarea",
+            "id": "contactinfo_desc",
+            "label": "Description"
+         },
+         {
+            "type": "text",
+            "id": "contactinfo_add",
+            "label": "Adress"
+         },
+         {
+            "type": "text",
+            "id": "contactinfo_phone",
+            "label": "Phone"
+         },
+         {
+            "type": "text",
+            "id": "contactinfo_email",
+            "label": "Email"
+         },
+         {
+            "type": "header",
+            "content": "Block tag"
+         },
+         {
+            "type": "checkbox",
+            "id": "blocktag_enable",
+            "label": "Enable\/Disable?"
+         },
+         {
+            "type": "text",
+            "id": "blocktag_title",
+            "placeholder": "Title for Block",
+            "label": "Block Title"
+         },
+         {
+            "type": "textarea",
+            "id": "blocktag_list",
+            "placeholder": "Tags name1 ,Tags name1",
+            "label": "Tags List",
+            "info": "Separate by a comma \",\""
+         },
+         {
+            "type": "header",
+            "content": "Vela Brands"
+         },
+         {
+            "type": "checkbox",
+            "id": "logo_carousel_enable",
+            "label": "Enable\/Disable?"
+         },
+         {
+            "type": "text",
+            "id": "logo_carousel_title",
+            "placeholder": "Title for Block",
+            "label": "Block Title"
+         },
+         {
+            "type": "text",
+            "id": "image_size",
+            "label": "Image Size",
+            "default": "70x70",
+            "info": "[Size parameters](https://help.shopify.com/themes/liquid/filters/url-filters#size-parameters)"
+         },
+         {
+            "type": "checkbox",
+            "id": "logo_carousel_active1",
+            "label": "1 Active Image"
+         },
+         {
+            "type": "image_picker",
+            "id": "logo_image1",
+            "label": "1 Image"
+         },
+         {
+            "type": "text",
+            "id": "logo_carousel_link1",
+            "placeholder": "Link for image",
+            "label": "1 Link for Image"
+         },
+         {
+            "type": "checkbox",
+            "id": "logo_carousel_active2",
+            "label": "2 Active Image"
+         },
+         {
+            "type": "image_picker",
+            "id": "logo_image2",
+            "label": "2 Image"
+         },
+         {
+            "type": "text",
+            "id": "logo_carousel_link2",
+            "placeholder": "Link for image",
+            "label": "2 Link for Image"
+         },
+         {
+            "type": "checkbox",
+            "id": "logo_carousel_active3",
+            "label": "3 Active Image"
+         },
+         {
+            "type": "image_picker",
+            "id": "logo_image3",
+            "label": "3 Image"
+         },
+         {
+            "type": "text",
+            "id": "logo_carousel_link3",
+            "placeholder": "Link for image",
+            "label": "3 Link for Image"
+         },
+         {
+            "type": "checkbox",
+            "id": "logo_carousel_active4",
+            "label": "4 Active Image"
+         },
+         {
+            "type": "image_picker",
+            "id": "logo_image4",
+            "label": "4 Image"
+         },
+         {
+            "type": "text",
+            "id": "logo_carousel_link4",
+            "placeholder": "Link for image",
+            "label": "4 Link for Image"
+         },
+         {
+            "type": "checkbox",
+            "id": "logo_carousel_active5",
+            "label": "5 Active Image"
+         },
+         {
+            "type": "image_picker",
+            "id": "logo_image5",
+            "label": "5 Image"
+         },
+         {
+            "type": "text",
+            "id": "logo_carousel_link5",
+            "placeholder": "Link for image",
+            "label": "5 Link for Image"
+         },
+         {
+            "type": "checkbox",
+            "id": "logo_carousel_active6",
+            "label": "6 Active Image"
+         },
+         {
+            "type": "image_picker",
+            "id": "logo_image6",
+            "label": "6 Image"
+         },
+         {
+            "type": "text",
+            "id": "logo_carousel_link6",
+            "placeholder": "Link for image",
+            "label": "6 Link for Image"
+         },
+         {
+           "type": "checkbox",
+           "id": "logo_carousel_active7",
+           "label": "7 Active Image"
+         },
+         {
+           "type": "image_picker",
+           "id": "logo_image7",
+           "label": "7 Image"
+         },
+         {
+           "type": "text",
+           "id": "logo_carousel_link7",
+           "placeholder": "Link for image",
+           "label": "7 Link for Image"
+         },
+         {
+           "type": "checkbox",
+           "id": "logo_carousel_active8",
+           "label": "8 Active Image"
+         },
+         {
+           "type": "image_picker",
+           "id": "logo_image8",
+           "label": "8 Image"
+         },
+         {
+           "type": "text",
+           "id": "logo_carousel_link8",
+           "placeholder": "Link for image",
+           "label": "8 Link for Image"
+         },
+         {
+           "type": "checkbox",
+           "id": "logo_carousel_active9",
+           "label": "9 Active Image"
+         },
+         {
+           "type": "image_picker",
+           "id": "logo_image9",
+           "label": "9 Image"
+         },
+         {
+            "type": "header",
+            "content": "Vela Social"
+         },
+         {
+            "type": "checkbox",
+            "id": "social_enable",
+            "label": "Enable Vela Social?"
+         },
+         {
+            "type": "text",
+            "id": "social_title",
+            "placeholder": "Title for Block",
+            "label": "Block Title",
+            "info": "Title for Block"
+         },
+         {
+            "type": "text",
+            "id": "social_facebook",
+            "placeholder": "Link your Facebook",
+            "label": "Facebook Link"
+         },
+         {
+            "type": "text",
+            "id": "social_twitter",
+            "placeholder": "Link your Twitter",
+            "label": "Twitter Link"
+         },
+         {
+            "type": "text",
+            "id": "social_instagram",
+            "placeholder": "Link your Instagram",
+            "label": "Instagram Link"
+         },
+         {
+            "type": "text",
+            "id": "social_pinterest",
+            "placeholder": "Link your Pinterest",
+            "label": "Pinterest Link"
+         },
+         {
+            "type": "text",
+            "id": "social_youtube",
+            "placeholder": "Link your Youtube",
+            "label": "Youtube Link"
+         },
+         {
+            "type": "text",
+            "id": "social_googleplus",
+            "placeholder": "Link your Googleplus",
+            "label": "Googleplus Link"
+         },
+         {
+            "type": "text",
+            "id": "social_rss",
+            "placeholder": "Link your Rss",
+            "label": "Rss Link"
+         },
+         {
+            "type": "header",
+            "content": "Block Newsletter"
+         },
+         {
+            "type": "checkbox",
+            "id": "newsletter_enable",
+            "label": "Enable?"
+         }, 
+         {
+            "type": "text",
+            "id": "newsletter_title",
+            "placeholder": "Title for Block",
+            "label": "Title"
+         },
+         {
+            "type": "textarea",
+            "id": "newsletter_description",
+            "placeholder": "Description for Block",
+            "label": "Description"
+         },
+         {
+            "type": "checkbox",
+            "id": "newsletter_mailchimp",
+            "label": "Use MailChimp",
+            "default": true
+         },
+         {
+            "type": "paragraph",
+            "content": "Uncheck if You use Newsletter of Shopify. Email will be saved to shopify customer. Admin -> Customers -> Accepts Marketting. You must send invite account for customer."
+         },
+         {
+            "type": "text",
+            "id": "newsletter_form_action",
+            "label": "MailChimp form action URL",
+            "info": "[Where do I find my MailChimp form action URL?](http:\/\/docs.shopify.com\/support\/configuration\/store-customization\/where-do-i-get-my-mailchimp-form-action)"
+         },
+         {
+            "type": "header",
+            "content": "Upload Logo Payment"
+         },
+         {
+            "type": "checkbox",
+            "id": "logo_payment_enable",
+            "label": "Enable?"
+         },           
+         {
+            "type": "image_picker",
+            "id": "logo_payment",
+            "label": "Logo"
+         } ,        
+         {
+            "type": "text",
+            "id": "payment_link",
+            "label": "Link",
+            "default": "#"
+         }             
+      ],
+      "blocks": [
+         {
+            "type": "link",
+            "name": "Footer Menu",
+            "settings": [
+               {
+                  "type": "text",
+                  "id": "menu_class",
+                  "label": "Class",
+                  "default": "col-xs-12 col-sm-4"
+               },
+               {
+                  "type": "select",
+                  "id": "layout",
+                  "label": "Select Layout",
+                  "default": "grid",
+                  "options":[
+                      {
+                          "value": "grid",
+                        "label": "Grid"
+                      },
+                     {
+                        "value": "list",
+                        "label": "List"
+                     }
+                  ]
+               },
+               {
+                  "type": "text",
+                  "id": "menu_title",
+                  "label": "Title"
+               },
+               {
+                  "type": "link_list",
+                  "id": "menu_handle",
+                  "label": "Choose Menu",
+                  "info": "Choose menu for block. Add new menu: Admin -> Navigation"
+               }
+            ]
+         }
+      ]
+   }
+{% endschema %}

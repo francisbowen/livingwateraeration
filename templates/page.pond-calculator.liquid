@@ -1,0 +1,215 @@
+{% include 'breadcrumb' %}
+<section id="pageContent">
+    <div class="container">
+        <div class="pageContainer">
+            <h1 class="velaPageTitle">{{ page.title }}</h1>
+            <div class="pageContent">
+                <div class="rte">
+                    {{ page.content }}
+                  
+					<!--   first calculator   -->
+                  <div class="form-outer-container left col-lg-5 col-md-6 col-sm-12 col-xs-12">
+
+                    <h2>Rectangular Ponds</h2>
+
+                    <div class="form-inner-container">
+
+                        <form>
+
+                            <div class="txt-inputs-container">
+
+                                <div class="txt-input">
+                                    <label>Width (feet):</label>
+                                    <input type="text" placeholder="Width" id="rectWide">
+                                </div>
+
+                                <div class="txt-input">
+                                    <label>Length (feet):</label>
+                                    <input type="text" placeholder="Length" id="rectLong">
+                                </div>
+
+                            </div>
+
+                            <div class="calc-button">
+                                <button type="button" onclick="rectArea()">Calculate</button>
+                            </div>
+
+                            <div class="results">
+
+                                <div class="result">Surface Acres: <span id="answer1"></span></div>
+
+                            </div>
+
+                        </form>
+
+                    </div><!-- .form-inner-container -->
+
+                </div>
+                  
+                <!-- Second calculator-->
+                  <div class="form-outer-container right col-lg-5 col-md-6 col-sm-12 col-xs-12 col-lg-push-2 ">
+
+                    <h2>Circular Ponds</h2>
+
+                    <div class="form-inner-container">
+
+                        <form>
+
+                            <div class="txt-inputs-container">
+
+                                <div class="txt-input">
+                                    <label>Diameter (feet):</label>
+                                    <input type="text" placeholder="Diameter" id="circleDiam">
+                                </div>
+
+                            </div>
+
+                            <div class="calc-button">
+                                <button type="button" onclick="circleArea();">Calculate</button>
+                            </div>
+
+                            <div class="results">
+
+                                <div class="result">Surface Acres: <span id="answer2"></span></div>
+
+                            </div>
+
+                        </form>
+
+                    </div><!-- .form-inner-container -->
+
+                </div>
+                  
+                <!-- Third calculator-->
+                  <div class="form-outer-container left col-lg-5 col-md-6 col-sm-12 col-xs-12">
+
+                    <h2>Rectangular Ponds <span>(Pond Volume)</span></h2>
+
+                    <div class="form-inner-container">
+
+                        <form>
+
+                            <div class="txt-inputs-container">
+
+                                <div class="txt-input">
+                                    <label>Width (feet):</label>
+                                    <input type="text" placeholder="Width" id="rectWide2">
+                                </div>
+
+                                <div class="txt-input">
+                                    <label>Length (feet):</label>
+                                    <input type="text" placeholder="Length" id="rectLong2">
+                                </div>
+
+                                <div class="txt-input full">
+                                    <label>Average Depth (feet):</label>
+                                    <input type="text" placeholder="Depth" id="rectDepth2">
+                                </div>
+
+                            </div>
+
+                            <div class="calc-button">
+                                <button type="button" onclick="rectArea2()">Calculate</button>
+                            </div>
+
+                            <div class="results">
+
+                                <div class="result">Gallons: <span id="answer3"></span></div>
+
+                                <div class="result">Acre Feet: <span id="answer5"></span></div>
+
+                            </div>
+
+                        </form>
+
+                    </div><!-- .form-inner-container -->
+
+                </div>
+				<!--  Fourth Calculator -->
+                  <div class="form-outer-container right col-lg-5 col-md-6 col-sm-12 col-xs-12 col-lg-push-2 ">
+
+                    <h2>Circular Ponds <span>(Pond Volume)</span></h2>
+
+                    <div class="form-inner-container">
+
+                        <form>
+
+                            <div class="txt-inputs-container">
+
+                                <div class="txt-input full">
+                                    <label>Width (feet):</label>
+                                    <input type="text" placeholder="Width" id="circleDiam2">
+                                </div>
+
+                                <div class="txt-input full">
+                                    <label>Average Depth (feet):</label>
+                                    <input type="text" placeholder="Depth" id="circleDepth2">
+                                </div>
+
+                            </div>
+
+                            <div class="calc-button">
+                                <button type="button" onclick="circleArea2()">Calculate</button>
+                            </div>
+
+                            <div class="results">
+
+                                <div class="result">Gallons: <span id="answer4"></span></div>
+
+                                <div class="result">Acre Feet: <span id="answer6"></span></div>
+
+                            </div>
+
+                        </form>
+
+                    </div><!-- .form-inner-container -->
+
+                </div>
+                  
+                  
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script type="text/javascript">
+	function rectArea() {
+
+		var ans = (parseFloat($("#rectWide").val()) * parseFloat($("#rectLong").val()))/43560;
+		var realAns = ans.toFixed(2);
+		$("#answer1").html(realAns);
+
+	}
+
+	function circleArea() {
+
+		var rad1 = parseFloat($("#circleDiam").val())/2;
+		var area1 = (3.14 * rad1 * rad1)/43560;
+		var realArea = area1.toFixed(2);
+		$("#answer2").html(realArea);
+
+	}
+
+	function rectArea2() {
+
+		var ans2 = (parseFloat($("#rectWide2").val()) * parseFloat($("#rectLong2").val()) * parseFloat($("#rectDepth2").val()) * 7.5);
+		var realAns2 = ans2.toFixed(2);
+		$("#answer3").html(realAns2);
+		var acre1 = ((parseFloat($("#rectWide2").val()) * parseFloat($("#rectLong2").val()))/ 43560) * parseFloat($("#rectDepth2").val());
+		$("#answer5").html(acre1.toFixed(2));
+
+	}
+
+
+	function circleArea2() {
+
+		rad2 = parseFloat($("#circleDiam2").val())/2;
+		depth = parseFloat($("#circleDepth2").val());
+		volume1 = 3.14 * rad2 * rad2 * depth *7.5;
+		$("#answer4").html(volume1.toFixed(2));
+		var acre2 = ((3.14 * rad2 * rad2)/43560)* depth;
+		$("#answer6").html(acre2.toFixed(2));
+
+	}      
+</script>

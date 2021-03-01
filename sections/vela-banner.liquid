@@ -1,0 +1,85 @@
+<div class="velaBanner" style="{% if section.settings.margin_block !=blank %}margin:{{section.settings.margin_block}}; {% endif %}
+                      {% if section.settings.padding_block !=blank %}padding:{{section.settings.padding_block}}; {% endif %}">
+   <div class="container{% if section.settings.full_with %}-full{% endif %}">
+        <div class="{{ section.settings.effect }}">
+            {% if section.settings.link != blank %}<a href="{{ section.settings.link }}" title="{{ block.settings.image.alt | default: shop.name }}">{% endif %}
+                {% if section.settings.image != blank %}
+                    <img class="img-responsive" alt="{{ section.settings.image.alt | default: shop.name }}" src="{{ section.settings.image | img_url: '2000x' }}" />
+                {% else %}
+                    <img class="img-responsive" alt="{{ shop.name }}" src="//placehold.it/{{ section.settings.image_size }}" />
+                {% endif %}
+            {% if section.settings.link != blank %}</a>{% endif %}
+        </div>
+    </div>
+</div>
+{% schema %}
+    {
+        "name": "Vela Banner",
+        "class": "velaFramework",
+        "settings": [
+            {
+              "type": "header",
+              "content": "Design Block"
+            },
+            {
+              "type": "checkbox",
+              "id": "full_with",
+              "label": "Enabel Full Width?"
+            },
+            {
+              "type": "text",
+              "id": "margin_block",
+              "label": "Margin",
+              "placeholder": "0px 0px"
+            },
+            {
+              "type": "text",
+              "id": "padding_block",
+              "label": "Padding",
+              "placeholder": "0px 0px"
+            },
+            {
+               "type": "header",
+               "content": "General Settings"
+            },
+            {
+               "type": "text",
+               "id": "image_size",
+               "label": "Image Size",
+               "info": "Image Size is required."
+            },
+            {
+                "type": "text",
+                "id": "link",
+                "label": "Image Link"
+            },
+            {
+                "type": "image_picker",
+                "id": "image",
+                "label": "Banner Image"
+            },
+            {
+                "type": "select",
+                "id": "effect",
+                "label": "Effect",
+				     "default": "effectOne",
+                "options": [
+                    {
+                        "value": "effectOne",
+                        "label": "Effect one"
+                    },
+                    {
+                        "value": "effectTwo",
+                        "label": "Effect two"
+                    }
+                ]
+            }
+        ],
+		"presets": [
+            {
+                "name": "Vela Banner",
+                "category": "4. Vela Image"
+            }
+        ]
+    }
+{% endschema %}

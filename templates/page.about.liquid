@@ -1,0 +1,12 @@
+<h1 class="velaPageTitle velaTitle" style="{% if settings.page_background_image != blank %}background-image: url({{ settings.page_background_image | img_url: "master" }}); {% endif %} background-color: {{ settings.page_background_color }}">{{ page.title }}</h1>	
+{% include 'breadcrumb' %}
+<section id="pageContent">
+   <div class="pageContainer">
+      {% section 'vela-template-about' %}
+      {% section 'vela-html' %}
+      {% section 'vela-video' %}
+      {% section 'vela-ourteam' %}
+      {% section 'vela-testimonials' %}
+      {% section 'vela-logolist' %}
+   </div>
+</section>

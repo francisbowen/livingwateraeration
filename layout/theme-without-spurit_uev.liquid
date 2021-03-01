@@ -1,0 +1,111 @@
+<!doctype html>
+<!--[if IE 9]> <html class="ie9 no-js" lang="{{ shop.locale }}"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--> <html class="no-js" lang="{{ shop.locale }}"> <!--<![endif]-->
+<head>
+    <meta charset="utf-8">
+	<meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="theme-color" content="{{ settings.color_button }}">
+    <link rel="canonical" href="{{ canonical_url }}">
+    {% if settings.favicon != blank %}
+        <link rel="shortcut icon" href="{{ settings.favicon | img_url: '32x32' }}" type="image/png">
+    {% endif %}
+    {% capture seo_title %}
+        {{ page_title }}
+        {% if current_tags %}{%- assign meta_tags = current_tags | join: ', ' %} &ndash; {{ 'general.meta.tags' | t: tags: meta_tags -}}{% endif %}
+        {% if current_page != 1 %}&ndash; {{ 'general.meta.page' | t: page: current_page }}{% endif %}
+        {% unless page_title contains shop.name %}&ndash; {{ shop.name }}{% endunless %}
+    {% endcapture %}
+    <title>{{ seo_title }}</title>
+    {% if page_description %}
+        <meta name="description" content="{{ page_description | escape }}">
+    {% endif %}
+    {% include 'social-meta-tags' %}
+    {% include 'vela-header-styles' %}
+    {% include 'vela-header-javascript' %}
+    {{ content_for_header }}
+{%- include 'bold-common' -%}
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.css" type="text/css">
+
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick-theme.min.css" type="text/css">
+<!--   <link href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" type="text/css">
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script> -->
+</head>
+<body id="{{ page_title | handle }}" class="template-{{ template | split: '.' | first }}{% if settings.header_float_enable %} velaFloatHeader{% endif %}">
+    {% include 'vela-template' %}
+    <div id="pageContainer" class="isMoved">
+        {% include 'vela-header-section' %}
+        <main class="mainContent">
+          	{% if template == 'index' %}
+          		{% include 'collection-block' %}
+     			
+            {% endif %}
+            {{ content_for_layout }}
+          	{% if template == 'index' %}
+          		{% include 'content-text' %}
+                <script>
+                  $(document).ready(function(){
+//                     $( ".portfolioDisc" ).bind( "tap", tapHandler );
+//                     $("clicked-block").bing("tap", tapHandler);
+ 
+//                     function tapHandler( event ){
+//                       console.log(event.target);
+//                       if($(event.target).hasClass("clicked-block")){
+//                         alert('si');
+//                       	$(event.target).removeClass('clicked-block');
+//                       }else{
+//                         alert('no');
+//                         $(event.target).removeClass('clicked-block');
+//                       	$( event.target ).addClass( "clicked-block" );
+//                       }
+//                     }
+                    
+// 					   $('.lake-pond-info').on('click',function(){
+//                          if(screen.width <= 768){
+//                            $('.portfolioDisc').removeClass('clicked-block');
+//                            $(this).find('.portfolioDisc').addClass('clicked-block');
+//                          }
+//                       });
+                      $('a.proFeaturedImage img').each(function(){
+                              jQuery(this).prop('src',$(this).prop('src').replace(/_small/g,""));
+                          });
+                  });
+                </script>
+     			
+            {% endif %}
+         	
+        
+        </main>
+        {% section 'vela-footer' %}
+    </div>
+    {% include 'vela-ajaxcart' %}
+    {% include 'vela-modal' %}
+    {% include 'vela-footer-javascript' %}
+	{% include 'booster-discounts' %}
+  	{% if template == 'product' %}
+  		<!-- start: all other pages (product, informational) -->
+       <script src="https://search-nodejs.yswhosting.com/production_files/search-magic-is-livingwateraeration-shopify.min.js" id="ysw-search-magic-script-is" defer></script>
+        <!-- end: all other pages (product, informational) -->
+	{% endif %}
+  
+  {% if template != 'collection' and template != 'product'  %}
+      <!-- 
+    start: only search page (https://livingwateraeration.myshopify.com/search?type=product&q=pond)
+    example: https://search-nodejs.yswhosting.com/stores/livingwateraeration-shopify/search-results.html
+    -->
+    <script src="https://search-nodejs.yswhosting.com/production_files/search-magic-s-livingwateraeration-shopify.min.js" id="ysw-search-magic-script-s" defer></script>
+    <!-- end: only search page -->
+  {% endif %}
+  
+  {% if template == 'collection' %}
+  <script>
+    $('#btnMenuMobile').on('click',function(){
+        $('body').addClass('menuMobileActive');
+    });
+  	$('.close.btnMenuClose').on('click',function(){
+        $('body').removeClass('menuMobileActive');
+    });
+  </script>
+  {% endif %}
+</body>
+</html>

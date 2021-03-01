@@ -1,0 +1,9 @@
+<div class="velaCartTop">  
+	<a href="/cart" class="jsDrawerOpenRight">
+		<span class="fa fa-shopping-cart"></span>
+		<span class="cartitle"> {{ 'layout.cart.title' | t }}</span>
+		<span id="CartCount">{{ cart.item_count }}</span>
+		<span class="item">{{ 'layout.cart.items_count' | t: count: cart.item_count }}</span>
+		<span id="CartCost"><span class="wh-original-cart-total"><span class='wh-original-price'>{{ cart.total_price | money }}</span></span><span class="wh-cart-total"></span><div class="additional-notes"><span class="wh-minimums-note"></span><span class="wh-extra-note"></span></div></span>
+	</a>
+</div>

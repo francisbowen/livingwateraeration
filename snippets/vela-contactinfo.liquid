@@ -1,0 +1,24 @@
+<div class="vela-contactinfo velaBlock">
+	<div class="vela-content">
+      	<h4 class="velaFooterTitle">Connect with us</h4>
+		<div class="contactinfo-logo clearfix">
+            <div itemscope itemtype="http://schema.org/Organization">
+<!--                 <a href="/" itemprop="url" class="velaLogoLink">
+                    <img class="img-responsive" src="{{ section.settings.contactinfo_logo | img_url: "master" }}" alt="{{ shop.name }}" itemprop="logo">
+                </a> -->
+            </div>
+		</div>
+      	{% if contactinfoDesc != blank %}
+		<div class="contactinfo-desc clearfix">{{ contactinfoDesc }}</div>
+		{% endif %}
+		{% if contactinfoAdd != blank %}
+		<div class="contactinfo-address clearfix"><i class="fa fa-home"></i>{{ contactinfoAdd }}</div>
+		{% endif %}		
+		{% if contactinfoPhone != blank %}
+		<div class="contactinfo-phone clearfix"><i class="fa fa-phone"></i>{{ contactinfoPhone }}</div>
+		{% endif %}		
+		{% if contactinfoEmail != blank %}
+		<div class="contactinfo-email clearfix"><i class="fa fa-envelope"></i>{{ contactinfoEmail }}</div>
+		{% endif %}
+	</div>
+</div>

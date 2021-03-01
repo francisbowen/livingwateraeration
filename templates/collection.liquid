@@ -1,0 +1,42 @@
+	
+<!-- <h1 class="velaPageTitle velaTitle headerCollection" style="{% if settings.page_background_image != blank %}background-image: url({{ settings.page_background_image | img_url: "master" }}); {% endif %} background-color: {{ settings.page_background_color }}">{{ collection.title }}</h1> -->
+{% include 'breadcrumb' %}
+
+{% comment %}
+{% include 'uncomplicated.categories.catlist' %}
+{% endcomment %}
+<section id="pageContent">
+    <div class="container content-container vertical" id="ysw-search-vertical-container">
+        <div class="row">
+          	<aside id="velaSidebar" class="velaSidebar col-xs-12 col-sm-4 col-md-3 left-column">
+			<!-- 
+              start: vertical layout 
+              Add this HTML to the page
+              -->
+                <div class="ysw-filter-heading">Filter By</div>
+                <div id="filters-div"></div>
+              <!-- end: vertical layout -->
+          	</aside>
+          	<div id="proListCollection" class="velaCenterColumn col-xs-12 col-sm-8 col-md-9"> 
+           
+
+
+              <h1 class="collection-title">{{ collection.title }}</h1> 
+              {% include 'collection-carousel' %}
+              	{% section 'vela-template-collections' %}
+              
+		
+
+              
+          	</div>
+        </div>
+    </div>
+</section>
+
+<!-- 
+start: only category page (https://livingwateraeration.myshopify.com/collections/fire-fountains)
+example: https://search-nodejs.yswhosting.com/stores/livingwateraeration-shopify/section.html?query=103577288784
+-->
+<script type="text/javascript">window.yswSearchSectionPageId = '{{collection.id}}' </script>
+<script src="https://cdn2.searchmagic.com/production_files/search-magic-sec-livingwateraeration-shopify.min.js" id="ysw-search-magic-script-sec" defer></script>
+<!-- end: only category page -->
